@@ -3,7 +3,7 @@ from factory.fuzzy import FuzzyText
 
 from django.contrib.auth.models import User
 
-from posts.models import Post
+from posts.models import Post, Tag
 
 
 def LazyFuzzyText(**data):
@@ -16,6 +16,13 @@ class UserFactory(factory.django.DjangoModelFactory):
 
     username = LazyFuzzyText()
     password = LazyFuzzyText()
+
+
+class TagFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Tag
+
+    title = LazyFuzzyText()
 
 
 class PostFactory(factory.django.DjangoModelFactory):

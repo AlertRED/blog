@@ -38,7 +38,7 @@ class PostCreateTestCase(BasicAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse(len(Post.objects.all()))
 
-    def test_failure_create_post_without_title(self):
+    def test_failure_create_post_without_body(self):
         data = {
             'title': FuzzyText().fuzz(),
         }
@@ -47,7 +47,7 @@ class PostCreateTestCase(BasicAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse(len(Post.objects.all()))
 
-    def test_failure_create_post_without_body(self):
+    def test_failure_create_post_without_title(self):
         data = {
             'body': FuzzyText().fuzz(),
         }
