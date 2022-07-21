@@ -3,7 +3,7 @@ from factory.fuzzy import FuzzyText
 
 from django.contrib.auth.models import User
 
-from posts.models import Post, Tag
+from post.models import Post, Tag
 
 
 def LazyFuzzyText(**data):

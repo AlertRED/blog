@@ -26,11 +26,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     'core',
     'dictionary',
-    'posts',
+    'post',
+    'contacts',
 ]
 
 REST_FRAMEWORK = {
@@ -38,6 +40,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'blog.utils.ExpiringTokenAuthentication',
     ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 MIDDLEWARE = [

@@ -6,7 +6,7 @@ from rest_framework import status
 
 from blog.factories import PostFactory, UserFactory
 from blog.utils import BasicAPITestCase
-from posts.models import Post
+from post.models import Post
 
 
 class PostCreateTestCase(BasicAPITestCase):

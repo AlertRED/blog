@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path, include
-from posts.views import PostView, TagView, PostByTagView
+from post.views import PostView, TagView, PostByTagView
 from core.views import AuthView
 
 urlpatterns = [

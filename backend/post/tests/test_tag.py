@@ -6,7 +6,7 @@ from rest_framework import status
 
 from blog.factories import TagFactory, UserFactory
 from blog.utils import BasicAPITestCase
-from posts.models import Tag
+from post.models import Tag
 
 
 class TagCreateTestCase(BasicAPITestCase):

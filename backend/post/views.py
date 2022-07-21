@@ -3,13 +3,13 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 
 from .models import Post, Tag
 from .serializers import (
     PostSerializer,
-    PostsByTagSerializer,
     TagSerializer,
 )
 
@@ -18,6 +18,14 @@ class PostView(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+    search_fields = ['title']
+    ordering_fields = ['created']
+    filterset_fields = ['is_draft', 'is_deleted']
 
     def add_tag(self, request, *args, **kwargs):
         tag = get_object_or_404(Tag, pk=self.kwargs['tag_pk'])
@@ -37,7 +45,7 @@ class TagView(viewsets.ModelViewSet):
 
 
 class PostByTagView(mixins.ListModelMixin, GenericViewSet):
-    serializer_class = PostsByTagSerializer
+    serializer_class = PostSerializer
 
     def get_queryset(self):
         return Post.objects.filter(

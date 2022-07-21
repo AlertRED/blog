@@ -48,13 +48,3 @@ class TagSerializer(serializers.ModelSerializer):
         format='%d-%m-%Y',
         read_only=True,
     )
-
-
-class PostsByTagSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Post
-        fields = (
-            'id', 'title', 'body', 'created',
-            'updated', 'is_deleted', 'is_draft', 'tags',
-        )

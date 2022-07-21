@@ -33,13 +33,13 @@ class Migration(migrations.Migration):
             name='Vote',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='posts.post')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='post.post')),
                 ('voter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='post',
             name='tags',
-            field=models.ManyToManyField(to='posts.tag'),
+            field=models.ManyToManyField(to='post.tag'),
         ),
     ]
