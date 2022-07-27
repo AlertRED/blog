@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'core',
     'dictionary',
     'post',
-    'contacts',
+    'contact',
 ]
 
 REST_FRAMEWORK = {

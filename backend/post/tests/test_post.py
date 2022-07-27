@@ -10,6 +10,10 @@ from post.models import Post
 
 
 class PostCreateTestCase(BasicAPITestCase):
+    data = {
+        'title': FuzzyText().fuzz(),
+        'body': FuzzyText().fuzz(),
+    }
 
     def _request(self, data: dict, is_auth: bool = True):
         if is_auth:
@@ -20,11 +24,7 @@ class PostCreateTestCase(BasicAPITestCase):
         )
 
     def test_success_create_post(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        response = self._request(data)
+        response = self._request(self.data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(len(Post.objects.all()), 1)
@@ -57,11 +57,7 @@ class PostCreateTestCase(BasicAPITestCase):
         self.assertFalse(len(Post.objects.all()))
 
     def test_failure_create_post_without_auth(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        response = self._request(data, is_auth=False)
+        response = self._request(self.data, is_auth=False)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertFalse(len(Post.objects.all()))
@@ -86,18 +82,18 @@ class PostGetListTestCase(BasicAPITestCase):
 
 
 class PostGetTestCase(BasicAPITestCase):
+    data = {
+        'title': FuzzyText().fuzz(),
+        'body': FuzzyText().fuzz(),
+    }
 
     def _request(self, id: int):
         return self.client.get(
-            reverse('api_post_get_put_path_delete', args=[id]),
+            reverse('api_post_get_put_patch_delete', args=[id]),
         )
 
     def test_success_get_post(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        post = PostFactory(**data)
+        post = PostFactory(**self.data)
 
         response = self._request(post.pk)
 
@@ -105,8 +101,8 @@ class PostGetTestCase(BasicAPITestCase):
         self.assertEqual(len(Post.objects.all()), 1)
         self.assertEqual(len(Post.objects.filter(pk=post.pk)), 1)
         post: Post = Post.objects.filter(pk=post.pk)[0]
-        self.assertEqual(post.body, data['body'])
-        self.assertEqual(post.title, data['title'])
+        self.assertEqual(post.body, self.data['body'])
+        self.assertEqual(post.title, self.data['title'])
 
     def test_failure_get_post_if_not_exist(self):
         response = self._request(1)
@@ -117,44 +113,36 @@ class PostGetTestCase(BasicAPITestCase):
 
 
 class PostUpdateTestCase(BasicAPITestCase):
+    data = {
+        'title': FuzzyText().fuzz(),
+        'body': FuzzyText().fuzz(),
+    }
 
     def _request(self, id: int, data: dict, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.put(
-            reverse('api_post_get_put_path_delete', args=[id]),
+            reverse('api_post_get_put_patch_delete', args=[id]),
             data=data,
         )
 
     def test_success_update_post(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        post = PostFactory(**data)
-        response = self._request(post.pk, data)
+        post = PostFactory(**self.data)
+        response = self._request(post.pk, self.data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         post: Post = Post.objects.filter(pk=post.pk)[0]
-        self.assertEqual(post.body, data['body'])
-        self.assertEqual(post.title, data['title'])
+        self.assertEqual(post.body, self.data['body'])
+        self.assertEqual(post.title, self.data['title'])
 
-    def test_failure_get_post_if_not_exist(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        response = self._request(1, data)
+    def test_failure_update_post_if_not_exist(self):
+        response = self._request(1, self.data)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_failure_update_post_without_auth(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        post = PostFactory(**data)
-        response = self._request(post.pk, data, is_auth=False)
+        post = PostFactory(**self.data)
+        response = self._request(post.pk, self.data, is_auth=False)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         new_post: Post = Post.objects.filter(pk=post.pk)[0]
@@ -163,31 +151,28 @@ class PostUpdateTestCase(BasicAPITestCase):
 
 
 class PostDeleteTestCase(BasicAPITestCase):
+    data = {
+        'title': FuzzyText().fuzz(),
+        'body': FuzzyText().fuzz(),
+    }
 
     def _request(self, id: int, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.delete(
-            reverse('api_post_get_put_path_delete', args=[id]),
+            reverse('api_post_get_put_patch_delete', args=[id]),
         )
 
     def test_success_delete_post(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        post = PostFactory(**data)
+
+        post = PostFactory(**self.data)
         response = self._request(post.pk)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(len(Post.objects.all()))
 
     def test_failure_delete_post_without_auth(self):
-        data = {
-            'title': FuzzyText().fuzz(),
-            'body': FuzzyText().fuzz(),
-        }
-        post = PostFactory(**data)
+        post = PostFactory(**self.data)
         response = self._request(post.pk, is_auth=False)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

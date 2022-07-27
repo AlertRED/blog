@@ -1,8 +1,8 @@
 from django.db import models
-from core.models import BasePost
+from core.models import BasePost, TimeModel
 
 
-class Tag(models.Model):
+class Tag(TimeModel):
     title = models.CharField(
         max_length=32,
         null=False,

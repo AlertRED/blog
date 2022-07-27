@@ -14,19 +14,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name='Contact',
             fields=[
                 ('timemodel_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='core.timemodel')),
-                ('title', models.CharField(max_length=32, unique=True, verbose_name='Название тега')),
+                ('source_name', models.CharField(max_length=32, unique=True, verbose_name='Название ресурса')),
+                ('contact_value', models.CharField(max_length=32, verbose_name='Значение контакта')),
             ],
             bases=('core.timemodel',),
-        ),
-        migrations.CreateModel(
-            name='Post',
-            fields=[
-                ('basepost_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='core.basepost')),
-                ('tags', models.ManyToManyField(to='post.tag')),
-            ],
-            bases=('core.basepost',),
         ),
     ]

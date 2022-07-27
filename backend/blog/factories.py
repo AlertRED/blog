@@ -3,6 +3,8 @@ from factory.fuzzy import FuzzyText
 
 from django.contrib.auth.models import User
 
+from contact.models import Contact
+from core.models import KeyValue
 from post.models import Post, Tag
 
 
@@ -31,3 +33,20 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     title = LazyFuzzyText()
     body = LazyFuzzyText()
+
+
+class KeyValueFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = KeyValue
+
+    key = LazyFuzzyText()
+    value = LazyFuzzyText()
+    type = KeyValue.TYPES.setting
+
+
+class ContactFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Contact
+
+    source_name = LazyFuzzyText()
+    contact_value = LazyFuzzyText()

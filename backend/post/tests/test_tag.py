@@ -63,7 +63,7 @@ class TagGetTestCase(BasicAPITestCase):
 
     def _request(self, id: int):
         return self.client.get(
-            reverse('api_tag_get_put_path_delete', args=[id]),
+            reverse('api_tag_get_put_patch_delete', args=[id]),
         )
 
     def test_success_get_tag(self):
@@ -97,7 +97,7 @@ class TagUpdateTestCase(BasicAPITestCase):
         if is_auth:
             self._auth(UserFactory())
         return self.client.put(
-            reverse('api_tag_get_put_path_delete', args=[id]),
+            reverse('api_tag_get_put_patch_delete', args=[id]),
             data=data,
         )
 
@@ -109,7 +109,7 @@ class TagUpdateTestCase(BasicAPITestCase):
         tag: Tag = Tag.objects.filter(pk=tag.pk)[0]
         self.assertEqual(tag.title, self.data['title'])
 
-    def test_failure_get_tag_if_not_exist(self):
+    def test_failure_update_tag_if_not_exist(self):
         response = self._request(1, self.data)
 
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -132,7 +132,7 @@ class TagDeleteTestCase(BasicAPITestCase):
         if is_auth:
             self._auth(UserFactory())
         return self.client.delete(
-            reverse('api_tag_get_put_path_delete', args=[id]),
+            reverse('api_tag_get_put_patch_delete', args=[id]),
         )
 
     def test_success_delete_tag(self):

@@ -1,6 +1,11 @@
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from core.serisalizers import KeyValueSerializer
+from core.models import KeyValue
 from blog import settings
 
 
@@ -18,3 +23,11 @@ class AuthView(ObtainAuthToken):
             'token': token.key,
             'lifetime': settings.TOKEN_LIFETIME,
         })
+
+
+class KeyValueView(viewsets.ModelViewSet):
+    """ Получить токен авторизации
+    """
+    serializer_class = KeyValueSerializer
+    queryset = KeyValue.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
