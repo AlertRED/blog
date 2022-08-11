@@ -1,5 +1,7 @@
 .vscode
 venv
+node_modules
+
 .pre-commit-config.yaml
 setup.cfg
 backend/db.sqlite3

@@ -7,6 +7,8 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 
+from .pagination import PostPagination, TagPagination
+from .filters import PostFilter
 from .models import Post, Tag
 from .serializers import (
     PostSerializer,
@@ -25,7 +27,8 @@ class PostView(viewsets.ModelViewSet):
     ]
     search_fields = ['title']
     ordering_fields = ['created']
-    filterset_fields = ['is_draft', 'is_deleted']
+    filterset_class = PostFilter
+    pagination_class = PostPagination
 
     def add_tag(self, request, *args, **kwargs):
         tag = get_object_or_404(Tag, pk=self.kwargs['tag_pk'])
@@ -42,6 +45,7 @@ class TagView(viewsets.ModelViewSet):
     serializer_class = TagSerializer
     queryset = Tag.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    pagination_class = TagPagination
 
 
 class PostByTagView(mixins.ListModelMixin, GenericViewSet):

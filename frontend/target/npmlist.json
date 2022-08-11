@@ -1,0 +1,1 @@
+{"version":"0.0.0","name":"frontend","dependencies":{"@popperjs/core":{"version":"2.11.5"},"bootstrap":{"version":"5.2.0"},"moment":{"version":"2.29.4"},"vue-moment":{"version":"4.1.0"},"vue":{"version":"3.2.37"}}}
