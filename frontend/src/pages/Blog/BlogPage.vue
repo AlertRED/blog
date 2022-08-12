@@ -15,12 +15,12 @@
     <ul id="posts">
         <template v-for="post in posts">
             <li class="post">
-                <div class="post-title"><a href="#">{{ post.title }}</a></div>
+                <div class="post-title"><router-link :to="{ name:'post-detail', params: { id: post.id }}">{{ post.title }}</router-link></div>
                 <div class="separator"></div>
                 <div :class="`post-date`" :data-date="moment(post.created, 'DD-MM-YYYY').format('DD.MM.YYYY')"></div>
                 <div class="tags">
-                    <template v-for="tag in post.tags">
-                        <div class="tag" v-on:click="get_posts_by_tag(tag)">{{ tag }}</div>
+                    <template v-for="tag in post.tags"> 
+                        <div class="tag" v-on:click="this.$router.push({name: 'blog', query: { tag: tag }})">{{ tag }}</div>
                     </template>
                 </div>
             </li>
@@ -29,24 +29,24 @@
 
     <ul id="pagination">
         <li 
-            @click="get_posts_previous(previous_link)"
-            :class="{ 'disabled' : previous_link === null}"
+            @click="get_posts_by_page(current_page - 1)"
+            :class="{ 'disabled': current_page - 1 < 1}"
             data-content="previous"
-        >
-        </li>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>...</li>
-        <li>7</li>
-        <li 
-            @click="get_posts_next(next_link)"
-            :class="{ 'disabled': next_link === null}"
-            data-content="next"
-        >
-        </li>
-    </ul>
+        ></li>
 
+        <template v-for="page in pages">
+            <li :class="{ 'active': current_page == page}"
+                @click="get_posts_by_page(page)"
+                :data-content="`${page}`"
+            ></li>
+        </template>
+
+        <li 
+            @click="get_posts_by_page(current_page + 1)"
+            :class="{ 'disabled': current_page + 1 > total_pages}"
+            data-content="next"
+        ></li>
+    </ul>
 
 
 </template>
@@ -61,11 +61,34 @@
                 posts: [],
                 post_search: "",
                 is_searching: false,
-                next_link: null,
-                previous_link: null,
-                pagination_limit: 2,
-                pagination_offset: 0,
+
+                limit: 8,
+                current_page: 1,
+                total_pages: null,
             }
+        },
+        watch: {
+            '$route.params': 'get_posts_by_page',
+        },
+        computed:{
+            pages() {
+                let pages = [];
+                let start = 0;
+
+                let count_pages = 3 < this.total_pages ? 3 : this.total_pages
+
+                if (this.current_page == 1)
+                    start = this.current_page
+                else if (this.current_page == this.total_pages)
+                    start = this.total_pages - (count_pages - 1)
+                else
+                    start = this.current_page - Math.floor(count_pages / 2);
+
+                for(let i = start; i < start + count_pages; i++ ) {
+                    pages.push(i);
+                }
+                return pages;
+            },
         },
         methods: {
             moment() {
@@ -74,69 +97,29 @@
             search_posts(event) {
                 clearTimeout(this.timer)
                 this.timer = setTimeout(() => {
-                    this.get_posts();
+                    this.get_posts_by_page(1);
                 }, 800)
             },
-            async get_posts() {
-                this.is_searching = true;                
+            async get_posts_by_page(page, tag = null) {
+                if ((page < 1 || page > this.total_pages) && this.total_pages)
+                    return
+                this.is_searching = true;
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.pagination_limit}&offset=${this.pagination_offset}`, 
+                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(page - 1) * this.limit}` +
+                    (this.$route.query.tag ? `&tag=${this.$route.query.tag}` : ''), 
                     {
                         method: "get",
                     },
                 );
                 const content = await response.json();
                 this.posts = content['results'];
-                this.next_link = content['links']['next'];
-                this.previous_link = content['links']['previous'];
-                this.is_searching = false;
-            },
-            async get_posts_next(url) {
-                this.is_searching = true;                
-                const response = await fetch(
-                    `${url}`, 
-                    {
-                        method: "get",
-                    },
-                );
-                const content = await response.json();
-                this.posts = content['results'];
-                this.next_link = content['links']['next'];
-                this.previous_link = content['links']['previous'];
-                this.is_searching = false;
-                // debugger;
-            },
-            async get_posts_previous(url) {
-                this.is_searching = true;                
-                const response = await fetch(
-                    `${url}`, 
-                    {
-                        method: "get",
-                    },
-                );
-                const content = await response.json();
-                this.posts = content['results'];
-                this.next_link = content['links']['next'];
-                this.previous_link = content['links']['previous'];
-                this.is_searching = false;
-            },
-            async get_posts_by_tag(tag) {
-                this.is_searching = true;                
-                const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts?tag=${tag}`, 
-                    {
-                        method: "get",
-                    },
-                );
-                const content = await response.json();
-                this.posts = content['results'];
-                this.next_link = content['links']['next'];
-                this.previous_link = content['links']['previous'];
+                this.current_page = page;
+                this.total_pages = Math.ceil(content['count'] / this.limit);
                 this.is_searching = false;
             },
         },
         beforeMount() {
-            this.get_posts();
+            this.get_posts_by_page(this.current_page);
         },
   };
 

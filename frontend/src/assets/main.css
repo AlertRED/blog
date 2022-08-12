@@ -46,6 +46,7 @@ input::placeholder {
   list-style-type: none;
   text-align: center;
   font-size: 1.1rem;
+  padding-left: 0rem;
 }
 
 #menu > li {
@@ -261,6 +262,10 @@ div.tags > div.tag:not(:last-child) {
   content: attr(data-content);
 }
 
+#pagination > li.active {
+  border-bottom: 1px solid #25b3bc;
+}
+
 #pagination > li:not(:last-child){
   margin-right: 1rem;
 }
@@ -268,4 +273,117 @@ div.tags > div.tag:not(:last-child) {
 #pagination > li:hover:not(.disabled) {
   border-bottom: 1px solid #25b3bc;
   cursor: pointer;
+}
+
+#button-add-post {
+  position: absolute;
+  left: 0rem;
+  top: 0rem;
+  font-size: 1.5rem;
+  margin-bottom: 1px;
+
+  border: 1px solid #25b3bc;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  color: #25b3bc;
+  padding-bottom: 0.25rem;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#button-add-post:hover {
+  background-image: none;
+}
+
+#button-add-post::before {
+  content: "+";
+}
+
+#create-post {
+  width: 100%;
+}
+
+#create-post > div > #post-title {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid #25b3bc;
+  box-shadow: none;
+  width: 100%;
+  outline: none;
+}
+
+#create-post label {
+  color: #AAA;
+}
+
+#create-post > div {
+  margin-bottom: 2rem;
+}
+
+#create-post > #post-body {
+  border: 1px solid #25b3bc;
+  box-shadow: none;
+  flex-grow: 1;
+  width: 100%;
+  outline: none;
+}
+
+#create-post > button[type=submit] {
+  outline: none;
+  border: 1px solid #25b3bc;
+  border-radius: 5px;
+  background: white;
+  color: #25b3bc;
+  padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+#create-post > button[type=submit]:hover {
+  background: #25b3bc;
+  color: white;
+}
+
+#post-detail > #post-title {
+  color: #25b3bc;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#post-detail > #post-tags {
+  color: #25b3bc;
+  list-style-type: none;
+
+  flex-wrap: wrap;
+  display: inline-flex;
+  justify-content: center;
+  padding: 0rem;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+#post-detail > #post-tags > li {
+  cursor: pointer;
+}
+
+#post-detail > #post-tags > li::before {
+  content: "■";
+  font-size: 0.4rem;
+  top: -0.2rem;
+  margin-right: 0.2rem;
+  opacity: 0;
+}
+
+#post-detail > #post-tags > li:hover::before {
+  opacity: 1;
+}
+
+#post-detail > #post-tags > li:not(:last-child) {
+  margin-right: 1rem;
+}
+
+#post-detail > #post-body {
+  color: #AAA;
 }

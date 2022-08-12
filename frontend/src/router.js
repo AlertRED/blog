@@ -14,10 +14,20 @@ const routes = [
     component: () => import('./pages/Blog/BlogPage.vue'),
   },
   { 
+    path: '/create-post',
+    name: 'create-post',
+    component: () => import('./pages/Blog/CreatePostPage.vue'),
+  },
+  { 
     path: '/tags',
     name: 'tags',
     component: () => import('./pages/Tags/TagsPage.vue'),
   },
+  { 
+    path: '/post-detail/:id',
+    name: 'post-detail',
+    component: () => import('./pages/Blog/PostDetailPage.vue'),
+  }
 ]
 
 export default function(history) {

@@ -1,7 +1,7 @@
 <template>
     <ul id="tags">
       <template v-for="tag in tags">
-        <li><a href="#">{{ tag.title }}</a></li>
+        <li><router-link :to="{ name:'blog', query: { tag: tag.title }}">{{ tag.title }}</router-link></li>
       </template>
     </ul>
 </template>
