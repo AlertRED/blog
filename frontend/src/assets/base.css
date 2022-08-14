@@ -61,7 +61,7 @@
 
 @font-face {
   font-family: "Cantarell";
-  src: url("Cantarell-Regular.ttf") format("opentype");
+  src: url("fonts/Cantarell-Regular.ttf") format("opentype");
 }
 
 body {

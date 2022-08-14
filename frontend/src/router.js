@@ -21,7 +21,12 @@ const routes = [
   { 
     path: '/create-post',
     name: 'create-post',
-    component: () => import('./pages/Blog/CreatePostPage.vue'),
+    component: () => import('./pages/Blog/EditPostPage.vue'),
+  },
+  { 
+    path: '/edit-post/:id',
+    name: 'edit-post',
+    component: () => import('./pages/Blog/EditPostPage.vue'),
   },
   { 
     path: '/tags',
