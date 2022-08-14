@@ -1,6 +1,10 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post.title }}</div>
+            <div class="post-tools">
+                <a>Изменить</a>
+                <a>Удалить</a>
+            </div>
         <ul id="post-tags">
             <li v-for="tag in post.tags" :key="index">
                 <router-link :to="{ name:'post-detail', params: { id: post.id }}">

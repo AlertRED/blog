@@ -15,14 +15,19 @@
     <ul id="posts">
         <template v-for="post in posts">
             <li class="post">
-                <div class="post-title"><router-link :to="{ name:'post-detail', params: { id: post.id }}">{{ post.title }}</router-link></div>
+                <div class="post-title">
+                    <router-link :to="{ name:'post-detail', params: { id: post.id }}">{{ post.title }}</router-link>
+                </div>
                 <div class="separator"></div>
-                <div :class="`post-date`" :data-date="moment(post.created, 'DD-MM-YYYY').format('DD.MM.YYYY')"></div>
+                <div :class="`post-date`" :data-date="moment(post.created)"></div>
+                
                 <div class="tags">
                     <template v-for="tag in post.tags"> 
                         <div class="tag" v-on:click="this.$router.push({name: 'blog', query: { tag: tag }})">{{ tag }}</div>
                     </template>
                 </div>
+
+                
             </li>
         </template>
     </ul>
@@ -91,8 +96,8 @@
             },
         },
         methods: {
-            moment() {
-                return moment();
+            moment(date) {
+                return moment(date, 'DD-MM-YYYY').format('DD.MM.YYYY');
             },
             search_posts(event) {
                 clearTimeout(this.timer)

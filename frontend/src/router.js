@@ -3,6 +3,11 @@ import { createRouter } from 'vue-router';
 
 const routes = [
   { 
+    path: '/auth',
+    name: 'auth',
+    component: () => import('./pages/Auth/AuthPage.vue'),
+  },
+  { 
     path: '/about',
     name: 'about-me',
     component: () => import('./pages/About/AboutPage.vue'),
