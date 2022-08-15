@@ -45,20 +45,20 @@
 
     <ul id="pagination">
         <li 
-            @click="get_posts_by_page(current_page - 1)"
+            @click="() => { current_page-- }"
             :class="{ 'disabled': current_page - 1 < 1}"
             data-content="previous"
         ></li>
 
         <template v-for="page in pages">
             <li :class="{ 'active': current_page == page}"
-                @click="get_posts_by_page(page)"
+                @click="() => { current_page = page }"
                 :data-content="`${page}`"
             ></li>
         </template>
 
         <li 
-            @click="get_posts_by_page(current_page + 1)"
+            @click="() => { current_page++ }"
             :class="{ 'disabled': current_page + 1 > total_pages}"
             data-content="next"
         ></li>
@@ -84,14 +84,19 @@
             }
         },
         watch: {
-            '$route.params': 'get_posts_by_page',
+            'current_page': 'get_posts_by_page',
+            '$route.query': function() { 
+                this.current_page = 1; 
+                this.get_posts_by_page();
+            },
         },
         computed:{
             pages() {
                 let pages = [];
                 let start = 0;
+                const max_show = 3
 
-                let count_pages = 3 < this.total_pages ? 3 : this.total_pages
+                let count_pages = max_show < this.total_pages ? max_show : this.total_pages
 
                 if (this.current_page == 1)
                     start = this.current_page
@@ -124,12 +129,12 @@
                     this.get_posts_by_page(1);
                 }, 800)
             },
-            async get_posts_by_page(page, tag = null) {
-                if ((page < 1 || page > this.total_pages) && this.total_pages)
+            async get_posts_by_page() {
+                if ((this.current_page < 1 || this.current_page > this.total_pages) && this.total_pages)
                     return
                 this.is_searching = true;
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(page - 1) * this.limit}` +
+                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
                     (this.$route.query.tag ? `&tag=${this.$route.query.tag}` : ''), 
                     {
                         method: "get",
@@ -137,7 +142,6 @@
                 );
                 const content = await response.json();
                 this.posts = content['results'];
-                this.current_page = page;
                 this.total_pages = Math.ceil(content['count'] / this.limit);
                 this.is_searching = false;
             },
@@ -154,7 +158,7 @@
             }
         },
         beforeMount() {
-            this.get_posts_by_page(this.current_page);
+            this.get_posts_by_page();
         },
   };
 

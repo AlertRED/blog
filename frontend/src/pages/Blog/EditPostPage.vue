@@ -48,7 +48,6 @@
         },
         methods: {
             async create_post(){
-
                 let bodyContent = new FormData();
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
@@ -73,7 +72,6 @@
                 let bodyContent = new FormData();
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
-
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
                     {
@@ -106,11 +104,3 @@
   };
 
 </script>
-
-
-<style>
-#editor {
-  margin: auto;
-  width: 80%;
-}
-</style>
