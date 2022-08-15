@@ -185,7 +185,7 @@ div.tags > div.tag:not(:last-child) {
 }
 
 #post-search {
-  display: flex;
+  display: grid;
   margin-bottom: 3rem;
   width: 50%;
   margin-left: auto;
@@ -211,6 +211,36 @@ div.tags > div.tag:not(:last-child) {
 #post-search > input:disabled {
   cursor: not-allowed;
   border-bottom: 1px solid #AAA;
+}
+
+#filter-tags {
+  margin-top: 0.5rem;
+  margin-bottom: 0rem;
+  min-height: 2rem;
+  list-style-type: none;
+  color: #25b3bc;
+  padding-left: 0rem;
+  font-size: 0.9rem;
+  display: flex;
+}
+
+#filter-tags > li {
+  border: 1px solid #25b3bc;
+  width: max-content;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  height: 1.6rem;
+}
+
+#filter-tags > li:not(:last-child) {
+  margin-right: 1rem;
+}
+
+#filter-tags > li > span {
+  font-size: 0.5rem;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0.2rem;
 }
 
 #tags {

@@ -10,7 +10,18 @@
             type="text"
             placeholder="Search"
         >
+        <ul id="filter-tags">
+            <li v-for="tag in filter_tags">
+                {{ tag }}
+                <span 
+                    class="icon-cross"
+                    @click="remove_tag_from_filter(tag)"
+                ></span>
+            </li>
+        </ul>
     </form>
+
+    
 
     <ul id="posts">
         <template v-for="post in posts">
@@ -23,7 +34,7 @@
                 
                 <div class="tags">
                     <template v-for="tag in post.tags"> 
-                        <div class="tag" v-on:click="this.$router.push({name: 'blog', query: { tag: tag }})">{{ tag }}</div>
+                        <div class="tag" v-on:click="this.$router.push({name: 'blog', query: { tag: add_to_tags(tag) }})">{{ tag }}</div>
                     </template>
                 </div>
 
@@ -94,6 +105,14 @@
                 }
                 return pages;
             },
+            filter_tags() {
+                if (this.$route.query.tag){
+                    if (typeof this.$route.query.tag == 'string')
+                        return [this.$route.query.tag]
+                    return this.$route.query.tag
+                }
+                return []
+            }
         },
         methods: {
             moment(date) {
@@ -122,6 +141,17 @@
                 this.total_pages = Math.ceil(content['count'] / this.limit);
                 this.is_searching = false;
             },
+            remove_tag_from_filter(tag) {
+                const query_tags = this.filter_tags.slice();
+                query_tags.splice(this.filter_tags.indexOf(tag), 1);
+                this.$router.replace({name: 'blog', query: {tag: query_tags}});
+            },
+            add_to_tags(tag) {
+                const query_tags = this.filter_tags;
+                if (query_tags.indexOf(tag) === -1)
+                    return query_tags.concat(tag);
+                return query_tags;
+            }
         },
         beforeMount() {
             this.get_posts_by_page(this.current_page);

@@ -18,13 +18,13 @@ class PostFilter(FilterSet):
     # )
 
     tag = filters.CharFilter(
-        field_name='tags__title', method='filter_by_tag'
+        field_name='tags__title__in', method='filter_by_tag'
     )
 
     @staticmethod
-    def filter_by_tag(queryset, field_name, value):
+    def filter_by_tag(queryset, field_name: str, value: str):
         """ Фильтрация по тегу
         """
         if value:
-            queryset = queryset.filter(**{field_name: value})
-        return queryset
+            queryset = queryset.filter(**{field_name: value.split(',')})
+        return queryset.distinct()
