@@ -64,13 +64,23 @@
   src: url("fonts/Cantarell-Regular.ttf") format("opentype");
 }
 
+@font-face {
+  font-family: "PT-Root-UI_Regular";
+  src: url("fonts/PT-Root-UI_Regular.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: "PT-Serif_Regular";
+  src: url("fonts/PT-Serif_Regular.ttf") format("opentype");
+}
+
 body {
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: 'Cantarell', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+  font-family: 'PT-Root-UI_Regular', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
