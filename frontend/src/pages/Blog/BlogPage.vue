@@ -45,7 +45,7 @@
 
     <ul id="pagination">
         <li 
-            @click="() => { current_page-- }"
+            @click="() => { if (current_page - 1 > 0) current_page-- }"
             :class="{ 'disabled': current_page - 1 < 1}"
             data-content="previous"
         ></li>
@@ -58,7 +58,7 @@
         </template>
 
         <li 
-            @click="() => { current_page++ }"
+            @click="() => { if (current_page + 1 <= total_pages) current_page++ }"
             :class="{ 'disabled': current_page + 1 > total_pages}"
             data-content="next"
         ></li>

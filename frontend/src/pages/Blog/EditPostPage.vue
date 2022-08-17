@@ -18,6 +18,17 @@
                 v-model="body"
             />
         </div>
+        
+        <div>
+            <label for="post-tags">Tags</label>
+            <Multiselect
+                id="post-tags"
+                v-model="value"
+                :options="options"
+                mode="tags"
+            />
+        </div>
+
         <template v-if="is_edit">
             <a href="#" v-on:click="save_post">Save</a>
         </template>
@@ -30,8 +41,10 @@
     
 
 </template>
-    
+
 <script>
+
+    import Multiselect from '@vueform/multiselect'
 
     export default {
         
@@ -39,7 +52,16 @@
             return {
                 title: null,
                 body: null,
+                value: null,
+                options: [
+                'Batman',
+                'Robin',
+                'Joker',
+                ]
             }
+        },
+        components: {
+            Multiselect,
         },
         computed: {
             is_edit() {
@@ -104,3 +126,29 @@
   };
 
 </script>
+
+<style src="@vueform/multiselect/themes/default.css"></style>
+
+<style type="text/css">
+    .multiselect {
+        border: none;
+        border-radius: 0px;
+        border-bottom: 1px solid #25b3bc;
+    }
+
+    .multiselect:focus-visible {
+        outline: none;
+    }
+    .multiselect.is-open{
+        box-shadow: none;
+    }
+
+    .multiselect-option {
+        color: #25b3bc;
+    }
+
+    .multiselect-tag {
+        background: #25b3bc;
+    }
+
+</style>

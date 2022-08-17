@@ -9,7 +9,6 @@
                 >
                     <span class="icon-pencil"></span>
                 </router-link>
-                
                 <a 
                     class="disable-decoration"
                     @click="delete_post"
