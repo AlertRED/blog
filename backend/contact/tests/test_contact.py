@@ -1,12 +1,14 @@
 from random import randint
+from uuid import UUID, uuid1
 from factory.fuzzy import FuzzyText
 
 from django.urls import reverse
 from rest_framework import status
 
-from contact.models import Contact
+from blog import settings
 from blog.factories import ContactFactory, UserFactory
 from blog.utils import BasicAPITestCase
+from contact.models import Contact
 
 
 class ContactCreateTestCase(BasicAPITestCase):
@@ -72,24 +74,25 @@ class ContactGetListTestCase(BasicAPITestCase):
         )
 
     def test_success_get_list_key_value(self):
-        count_key_values = randint(5, 10)
+        count_key_values = randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
         for _ in range(count_key_values):
             ContactFactory()
 
         response = self._request()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.json()), count_key_values)
+        self.assertEqual(len(response.json()['results']), count_key_values)
 
 
 class ContactGetTestCase(BasicAPITestCase):
 
-    data = {
-        'source_name': FuzzyText().fuzz(),
-        'contact_value': FuzzyText().fuzz(),
-    }
+    def setUp(self) -> None:
+        self.data = {
+            'source_name': FuzzyText().fuzz(),
+            'contact_value': FuzzyText().fuzz(),
+        }
 
-    def _request(self, id: int):
+    def _request(self, id: UUID):
         return self.client.get(
             reverse('api_contact_get_put_patch_delete', args=[id]),
         )
@@ -106,7 +109,7 @@ class ContactGetTestCase(BasicAPITestCase):
         self.assertEqual(key_value.source_name, self.data['source_name'])
 
     def test_failure_get_contact_if_not_exist(self):
-        response = self._request(1)
+        response = self._request(uuid1())
         self.assertEqual(
             response.status_code,
             status.HTTP_404_NOT_FOUND,
@@ -119,7 +122,7 @@ class ContactUpdateTestCase(BasicAPITestCase):
         'contact_value': FuzzyText().fuzz(),
     }
 
-    def _request(self, id: int, data: dict, is_auth: bool = True):
+    def _request(self, id: UUID, data: dict, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.put(
@@ -155,7 +158,7 @@ class ContactDeleteTestCase(BasicAPITestCase):
         'contact_value': FuzzyText().fuzz(),
     }
 
-    def _request(self, id: int, is_auth: bool = True):
+    def _request(self, id: UUID, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.delete(

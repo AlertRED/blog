@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 from contact.models import Contact
 from core.models import KeyValue
-from post.models import Post, Tag
+from post.models import Post, Category
 
 
 def LazyFuzzyText(**data):
@@ -20,9 +20,9 @@ class UserFactory(factory.django.DjangoModelFactory):
     password = LazyFuzzyText()
 
 
-class TagFactory(factory.django.DjangoModelFactory):
+class CategoryFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = Tag
+        model = Category
 
     title = LazyFuzzyText()
 
@@ -33,6 +33,7 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     title = LazyFuzzyText()
     body = LazyFuzzyText()
+    category = factory.SubFactory(CategoryFactory)
 
 
 class KeyValueFactory(factory.django.DjangoModelFactory):

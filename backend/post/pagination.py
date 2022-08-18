@@ -5,5 +5,5 @@ class PostPagination(BasePagination):
     default_limit = 10
 
 
-class TagPagination(BasePagination):
+class CategoryPagination(BasePagination):
     default_limit = 9999

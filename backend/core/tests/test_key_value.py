@@ -1,20 +1,23 @@
 from random import randint
+from uuid import UUID, uuid1
 from factory.fuzzy import FuzzyText
 
 from django.urls import reverse
 from rest_framework import status
 
+from blog import settings
 from core.models import KeyValue
 from blog.factories import KeyValueFactory, UserFactory
 from blog.utils import BasicAPITestCase
 
 
 class KeyValueCreateTestCase(BasicAPITestCase):
-    data = {
-        'key': FuzzyText().fuzz(),
-        'value': FuzzyText().fuzz(),
-        'type': KeyValue.TYPES.setting,
-    }
+    def setUp(self) -> None:
+        self.data = {
+            'key': FuzzyText().fuzz(),
+            'value': FuzzyText().fuzz(),
+            'type': KeyValue.TYPES.setting,
+        }
 
     def _request(self, data: dict, is_auth: bool = True):
         if is_auth:
@@ -77,25 +80,27 @@ class KeyValueGetListTestCase(BasicAPITestCase):
         )
 
     def test_success_get_list_key_value(self):
-        count_key_values = randint(5, 10)
+        count_key_values = randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
         for _ in range(count_key_values):
             KeyValueFactory()
 
         response = self._request()
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.json()), count_key_values)
+        self.assertEqual(len(response.json()['results']), count_key_values)
+        self.assertEqual(len(KeyValue.objects.all()), count_key_values)
 
 
 class KeyValueGetTestCase(BasicAPITestCase):
 
-    data = {
-        'key': FuzzyText().fuzz(),
-        'value': FuzzyText().fuzz(),
-        'type': KeyValue.TYPES.setting,
-    }
+    def setUp(self) -> None:
+        self.data = {
+            'key': FuzzyText().fuzz(),
+            'value': FuzzyText().fuzz(),
+            'type': KeyValue.TYPES.setting,
+        }
 
-    def _request(self, id: int):
+    def _request(self, id: UUID):
         return self.client.get(
             reverse('api_key_value_get_put_patch_delete', args=[id]),
         )
@@ -112,7 +117,7 @@ class KeyValueGetTestCase(BasicAPITestCase):
         self.assertEqual(key_value.key, self.data['key'])
 
     def test_failure_get_key_value_if_not_exist(self):
-        response = self._request(1)
+        response = self._request(uuid1())
         self.assertEqual(
             response.status_code,
             status.HTTP_404_NOT_FOUND,
@@ -120,13 +125,15 @@ class KeyValueGetTestCase(BasicAPITestCase):
 
 
 class KeyValueUpdateTestCase(BasicAPITestCase):
-    data = {
-        'key': FuzzyText().fuzz(),
-        'value': FuzzyText().fuzz(),
-        'type': KeyValue.TYPES.setting,
-    }
 
-    def _request(self, id: int, data: dict, is_auth: bool = True):
+    def setUp(self) -> None:
+        self.data = {
+            'key': FuzzyText().fuzz(),
+            'value': FuzzyText().fuzz(),
+            'type': KeyValue.TYPES.setting,
+        }
+
+    def _request(self, id: UUID, data: dict, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.put(
@@ -135,7 +142,7 @@ class KeyValueUpdateTestCase(BasicAPITestCase):
         )
 
     def test_success_update_key_value(self):
-        key_value = KeyValueFactory(**self.data)
+        key_value = KeyValueFactory()
         response = self._request(key_value.pk, self.data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -157,13 +164,14 @@ class KeyValueUpdateTestCase(BasicAPITestCase):
 
 
 class KeyValueDeleteTestCase(BasicAPITestCase):
-    data = {
-        'key': FuzzyText().fuzz(),
-        'value': FuzzyText().fuzz(),
-        'type': KeyValue.TYPES.setting,
-    }
+    def setUp(self) -> None:
+        self.data = {
+            'key': FuzzyText().fuzz(),
+            'value': FuzzyText().fuzz(),
+            'type': KeyValue.TYPES.setting,
+        }
 
-    def _request(self, id: int, is_auth: bool = True):
+    def _request(self, id: UUID, is_auth: bool = True):
         if is_auth:
             self._auth(UserFactory())
         return self.client.delete(

@@ -1,8 +1,54 @@
+import uuid
 from django.db import models
+from django.utils import timezone
 from model_utils import Choices
 
 
-class KeyValue(models.Model):
+class TimeStampModel(models.Model):
+
+    class Meta:
+        abstract = True
+
+    created = models.DateTimeField(
+        editable=False,
+        db_index=True,
+        verbose_name='Дата создания',
+        default=timezone.now,
+    )
+    updated = models.DateTimeField(
+        editable=False,
+        db_index=True,
+        verbose_name='Дата обновления',
+        default=timezone.now,
+    )
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+
+class UUIDPKModel(models.Model):
+    """ Абстрактный класс с идентификатором UUID
+    """
+
+    class Meta:
+        abstract = True
+
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid1,
+        editable=False
+    )
+
+
+class BaseModel(UUIDPKModel, TimeStampModel):
+    """ Базовый класс сущности
+    """
+
+    class Meta:
+        abstract = True
+
+
+class KeyValue(BaseModel):
     TYPES = Choices(
         ('setting', 'Настройки сайта'),
         ('content', 'Часть контента'),
@@ -29,34 +75,19 @@ class KeyValue(models.Model):
         return super().__str__()
 
 
-class TimeModel(models.Model):
-    created = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата создания'
-    )
-    updated = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата обновления'
-    )
-
-    def __str__(self) -> str:
-        return super().__str__()
-
-
-class BasePost(TimeModel):
+class BasePost(BaseModel):
 
     class Meta:
+        abstract = True
         ordering = ['-created']
 
     title = models.CharField(
         max_length=128,
-        null=False,
         unique=True,
         verbose_name='Название поста'
     )
     body = models.CharField(
         max_length=65536,
-        null=False,
         verbose_name='Содержание поста'
     )
     is_deleted = models.BooleanField(

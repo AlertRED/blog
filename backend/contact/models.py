@@ -1,8 +1,8 @@
 from django.db import models
-from core.models import TimeModel
+from core.models import BaseModel
 
 
-class Contact(TimeModel):
+class Contact(BaseModel):
     source_name = models.CharField(
         max_length=32,
         null=False,

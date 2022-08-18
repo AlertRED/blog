@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import Post, Tag
+from .models import Category, Post
 
 
-class TagSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Tag
+        model = Category
         fields = (
             'id', 'title', 'created', 'updated',
         )
@@ -25,9 +25,8 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    tags = serializers.SlugRelatedField(
-        many=True,
-        queryset=Tag.objects.all(),
+    category = serializers.SlugRelatedField(
+        queryset=Category.objects.all(),
         slug_field='title',
     )
 
@@ -35,7 +34,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             'id', 'title', 'body', 'created',
-            'updated', 'is_deleted', 'is_draft', 'tags',
+            'updated', 'is_deleted', 'is_draft', 'category',
         )
         read_only_fields = ('created', 'updated',)
 

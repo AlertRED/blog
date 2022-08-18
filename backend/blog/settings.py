@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_yasg',
     'corsheaders',
     'core',
     'dictionary',
@@ -40,6 +41,7 @@ REST_FRAMEWORK = {
     # "EXCEPTION_HANDLER": "blog.exceptions.custom_exception_handler",
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'blog.utils.ExpiringTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'core.pagination.BasePagination',
