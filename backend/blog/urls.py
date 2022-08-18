@@ -31,6 +31,13 @@ urlpatterns = [
         name='api_post_get_put_patch_delete',
     ),
     path(
+        'api/post/<int:pk>/add-tag/<int:tag_pk>/',
+        PostView.as_view({
+            'put': 'add_tag',
+        }),
+        name='api_add_tags',
+    ),
+    path(
         'api/tags/',
         TagView.as_view(
             {

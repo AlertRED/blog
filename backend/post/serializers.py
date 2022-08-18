@@ -25,7 +25,11 @@ class TagSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
 
-    tags = serializers.SerializerMethodField()
+    tags = serializers.SlugRelatedField(
+        many=True,
+        queryset=Tag.objects.all(),
+        slug_field='title',
+    )
 
     class Meta:
         model = Post
@@ -34,9 +38,6 @@ class PostSerializer(serializers.ModelSerializer):
             'updated', 'is_deleted', 'is_draft', 'tags',
         )
         read_only_fields = ('created', 'updated',)
-
-    def get_tags(self, obj):
-        return obj.tags.values_list('title', flat=True)
 
     created = serializers.DateTimeField(
         input_formats='%d-%m-%Y',
@@ -48,6 +49,3 @@ class PostSerializer(serializers.ModelSerializer):
         format='%d-%m-%Y',
         read_only=True,
     )
-
-
-
