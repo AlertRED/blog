@@ -147,36 +147,27 @@ input::placeholder {
   margin-right: 1rem;
 }
 
-
-/* ul.posts > li.post:before {
-  content: "§";
-  color: #AAA;
-  padding-right: 5px;
-  font-size: 1.4rem;
-  top: 0.5rem;
-} */
-
-div.tags > div.tag {
-  display: inline-block;
+#posts > li.post > div.category {
+  display: block;
   font-size: 0.9rem;
   line-height: 1.3rem;
   color: #25b3bc;
   cursor: pointer;
 }
 
-div.tags > div.tag::before {
+#posts > li.post > div.category::before {
   content: "■";
-  font-size: 0.6rem;
-  top: -0.2rem;
+  font-size: 0.4rem;
+  top: -0.1rem;
   margin-right: 0.2rem;
   opacity: 0;
 }
 
-div.tags > div.tag:hover::before {
+#posts > li.post > div.category:hover::before {
   opacity: 1;
 }
 
-div.tags > div.tag:not(:last-child) {
+#posts > li.post > div.category:not(:last-child) {
   margin-right: 1rem;
 }
 
@@ -208,7 +199,7 @@ div.tags > div.tag:not(:last-child) {
   border-bottom: 1px solid #AAA;
 }
 
-#filter-tags {
+#filter-categories {
   margin-top: 0.5rem;
   margin-bottom: 0rem;
   min-height: 2rem;
@@ -219,7 +210,7 @@ div.tags > div.tag:not(:last-child) {
   display: flex;
 }
 
-#filter-tags > li {
+#filter-categories > li {
   border: 1px solid #25b3bc;
   width: max-content;
   padding-left: 0.5rem;
@@ -227,31 +218,31 @@ div.tags > div.tag:not(:last-child) {
   height: 1.6rem;
 }
 
-#filter-tags > li:not(:last-child) {
+#filter-categories > li:not(:last-child) {
   margin-right: 1rem;
 }
 
-#filter-tags > li > span {
+#filter-categories > li > span {
   font-size: 0.5rem;
   vertical-align: middle;
   cursor: pointer;
   padding: 0.2rem;
 }
 
-#tags {
+#categories {
   flex-wrap: wrap;
   display: inline-flex;
   justify-content: center;
 }
 
-#tags > li {
+#categories > li {
   display: inline;
   position: relative;
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
 
-#tags > li > div.options {
+#categories > li > div.options {
   position: absolute;
   display: none;
   color: #25b3bc;
@@ -262,21 +253,21 @@ div.tags > div.tag:not(:last-child) {
   font-size: 0.8rem;
 }
 
-#tags > li > div.options > span {
+#categories > li > div.options > span {
   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
   cursor: pointer;
   opacity: 0.5;
 }
 
-#tags > li:hover > div.options {
+#categories > li:hover > div.options {
   display: flex;
 }
 
-#tags > li > div.options > span:hover {
+#categories > li > div.options > span:hover {
   opacity: 1;
 }
 
-#tags > li::before {
+#categories > li::before {
   content: "■";
   color: #25b3bc;
   font-size: 0.4rem;
@@ -284,7 +275,7 @@ div.tags > div.tag:not(:last-child) {
   margin-right: 0.2rem;
 }
 
-#tags > li:not(:last-child) {
+#categories > li:not(:last-child) {
   margin-right: 2rem;
 }
 
@@ -437,6 +428,17 @@ div.tags > div.tag:not(:last-child) {
   color: white;
 }
 
+#post-category > label {
+  margin-right: 1rem;
+}
+
+#post-category > select {
+  outline: none;
+  border: none;
+  background: white;
+  border-bottom: 1px solid #25b3bc;
+}
+
 #post-detail > #post-title {
   color: #25b3bc;
   text-align: center;
@@ -444,7 +446,7 @@ div.tags > div.tag:not(:last-child) {
   margin-bottom: 1rem;
 }
 
-#post-detail > #post-tags {
+#post-detail > #post-categories {
   color: #25b3bc;
   list-style-type: none;
 
@@ -456,11 +458,11 @@ div.tags > div.tag:not(:last-child) {
   margin-bottom: 2rem;
 }
 
-#post-detail > #post-tags > li {
+#post-detail > #post-categories > li {
   cursor: pointer;
 }
 
-#post-detail > #post-tags > li::before {
+#post-detail > #post-categories > li::before {
   content: "■";
   font-size: 0.6rem;
   top: -0.2rem;
@@ -468,11 +470,11 @@ div.tags > div.tag:not(:last-child) {
   opacity: 0;
 }
 
-#post-detail > #post-tags > li:hover::before {
+#post-detail > #post-categories > li:hover::before {
   opacity: 1;
 }
 
-#post-detail > #post-tags > li:not(:last-child) {
+#post-detail > #post-categories > li:not(:last-child) {
   margin-right: 1rem;
 }
 
@@ -562,7 +564,7 @@ div.tags > div.tag:not(:last-child) {
   margin-left: 2rem;
 }
 
-#edit-tag {
+#edit-category {
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
@@ -570,7 +572,7 @@ div.tags > div.tag:not(:last-child) {
   width: 20rem;
 }
 
-#edit-tag > input{
+#edit-category > input{
   flex-grow: 1;
   border: none;
   border-bottom: 1px solid #25b3bc;
@@ -579,7 +581,7 @@ div.tags > div.tag:not(:last-child) {
   margin-right: 1rem;
 }
 
-#edit-tag > a {
+#edit-category > a {
   outline: none;
   border: 1px solid #25b3bc;
   background: white;
@@ -588,7 +590,7 @@ div.tags > div.tag:not(:last-child) {
   cursor: pointer;
 }
 
-#edit-tag > a:hover {
+#edit-category > a:hover {
   background: #25b3bc;
   color: white;
 }

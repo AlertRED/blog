@@ -19,15 +19,15 @@
             />
         </div>
         
-        <div>
-            <label for="post-tags">Tags</label>
-            <Multiselect
-                id="post-tags"
-                v-model="value"
-                :options="options"
-                mode="tags"
-            />
+        <div id="post-category">
+            <label>Category</label>
+            <select v-model="category">
+                <option disabled value="">Выбор категории</option>
+                <option v-for="category in categories">{{ category.title }}</option>
+            </select>
         </div>
+
+        
 
         <template v-if="is_edit">
             <a href="#" v-on:click="save_post">Save</a>
@@ -44,7 +44,7 @@
 
 <script>
 
-    import Multiselect from '@vueform/multiselect'
+    import { ModelSelect } from 'vue-search-select'
 
     export default {
         
@@ -52,16 +52,12 @@
             return {
                 title: null,
                 body: null,
-                value: null,
-                options: [
-                'Batman',
-                'Robin',
-                'Joker',
-                ]
+                category: null,
+                categories: [],
             }
         },
         components: {
-            Multiselect,
+            ModelSelect,
         },
         computed: {
             is_edit() {
@@ -73,7 +69,8 @@
                 let bodyContent = new FormData();
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
-
+                bodyContent.append('category', this.category);
+                
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/posts/`, 
                     {
@@ -94,6 +91,7 @@
                 let bodyContent = new FormData();
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
+                bodyContent.append('category', this.category);
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
                     {
@@ -118,37 +116,22 @@
                 this.title = post.title;
                 this.body = post.body;
             },
+            async get_categories() {
+                const response = await fetch(
+                    `http://127.0.0.1:8000/api/categories`, 
+                    {
+                        method: "get",
+                    },
+                );
+                const content = await response.json();
+                this.categories = content['results'];
+            },
         },
         beforeMount() {
             if (this.is_edit)
                 this.get_post(this.$route.params.id);
+            this.get_categories()
         },
   };
 
 </script>
-
-<style src="@vueform/multiselect/themes/default.css"></style>
-
-<style type="text/css">
-    .multiselect {
-        border: none;
-        border-radius: 0px;
-        border-bottom: 1px solid #25b3bc;
-    }
-
-    .multiselect:focus-visible {
-        outline: none;
-    }
-    .multiselect.is-open{
-        box-shadow: none;
-    }
-
-    .multiselect-option {
-        color: #25b3bc;
-    }
-
-    .multiselect-tag {
-        background: #25b3bc;
-    }
-
-</style>

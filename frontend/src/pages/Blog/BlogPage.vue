@@ -10,12 +10,12 @@
             type="text"
             placeholder="Search"
         >
-        <ul id="filter-tags">
-            <li v-for="tag in filter_tags">
-                {{ tag }}
+        <ul id="filter-categories">
+            <li v-for="category in filter_categories">
+                {{ category }}
                 <span 
                     class="icon-cross"
-                    @click="remove_tag_from_filter(tag)"
+                    @click="remove_category_from_filter(category)"
                 ></span>
             </li>
         </ul>
@@ -32,13 +32,13 @@
                 <div class="separator"></div>
                 <div :class="`post-date`" :data-date="moment(post.created)"></div>
                 
-                <div class="tags">
-                    <template v-for="tag in post.tags"> 
-                        <div class="tag" v-on:click="this.$router.push({name: 'blog', query: { tag: add_to_tags(tag) }})">{{ tag }}</div>
-                    </template>
-                </div>
 
-                
+                <div 
+                    class="category"
+                    v-on:click="this.$router.push({name: 'blog', query: { category: add_to_categories(post.category) }})"
+                >
+                    {{ post.category }}
+                </div>
             </li>
         </template>
     </ul>
@@ -110,11 +110,11 @@
                 }
                 return pages;
             },
-            filter_tags() {
-                if (this.$route.query.tag){
-                    if (typeof this.$route.query.tag == 'string')
-                        return [this.$route.query.tag]
-                    return this.$route.query.tag
+            filter_categories() {
+                if (this.$route.query.category){
+                    if (typeof this.$route.query.category == 'string')
+                        return [this.$route.query.category]
+                    return this.$route.query.category
                 }
                 return []
             }
@@ -135,7 +135,7 @@
                 this.is_searching = true;
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
-                    (this.$route.query.tag ? `&tag=${this.$route.query.tag}` : ''), 
+                    (this.$route.query.category ? `&category=${this.$route.query.category}` : ''), 
                     {
                         method: "get",
                     },
@@ -145,16 +145,16 @@
                 this.total_pages = Math.ceil(content['count'] / this.limit);
                 this.is_searching = false;
             },
-            remove_tag_from_filter(tag) {
-                const query_tags = this.filter_tags.slice();
-                query_tags.splice(this.filter_tags.indexOf(tag), 1);
-                this.$router.replace({name: 'blog', query: {tag: query_tags}});
+            remove_category_from_filter(category) {
+                const query_categories = this.filter_categories.slice();
+                query_categories.splice(this.filter_categories.indexOf(category), 1);
+                this.$router.replace({name: 'blog', query: {category: query_categories}});
             },
-            add_to_tags(tag) {
-                const query_tags = this.filter_tags;
-                if (query_tags.indexOf(tag) === -1)
-                    return query_tags.concat(tag);
-                return query_tags;
+            add_to_categories(category) {
+                const query_categories = this.filter_categories;
+                if (query_categories.indexOf(category) === -1)
+                    return query_categories.concat(category);
+                return query_categories;
             }
         },
         beforeMount() {

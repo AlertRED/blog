@@ -29,9 +29,9 @@ const routes = [
     component: () => import('./pages/Blog/EditPostPage.vue'),
   },
   { 
-    path: '/tags',
-    name: 'tags',
-    component: () => import('./pages/Tags/TagsPage.vue'),
+    path: '/categories',
+    name: 'categories',
+    component: () => import('./pages/Category/CategoriesPage.vue'),
   },
   { 
     path: '/post-detail/:id',

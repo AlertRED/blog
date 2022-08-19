@@ -16,10 +16,10 @@
                     <span class="icon-bin"></span>
                 </a>
             </div>
-        <ul id="post-tags">
-            <li v-for="tag in post?.tags" :key="index">
-                <router-link :to="{ name:'blog', params: { tag: tag }}">
-                    {{ tag }}
+        <ul id="post-categories">
+            <li v-for="category in post?.categories" :key="index">
+                <router-link :to="{ name:'blog', params: { category: category }}">
+                    {{ category }}
                 </router-link>
             </li>
         </ul>
