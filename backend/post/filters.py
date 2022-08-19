@@ -10,19 +10,19 @@ class PostFilter(FilterSet):
 
     class Meta:
         model = Post
-        fields = ('is_draft', 'is_deleted', 'tag')
+        fields = ('is_draft', 'is_deleted', 'category')
 
     # tags = filters.ModelMultipleChoiceFilter(
     #     queryset=Tag.objects.all(),
     #     method='filter_tags'
     # )
 
-    tag = filters.CharFilter(
-        field_name='tags__title__in', method='filter_by_tag'
+    category = filters.CharFilter(
+        field_name='category__title__in', method='filter_by_category'
     )
 
     @staticmethod
-    def filter_by_tag(queryset, field_name: str, value: str):
+    def filter_by_category(queryset, field_name: str, value: str):
         """ Фильтрация по тегу
         """
         if value:
