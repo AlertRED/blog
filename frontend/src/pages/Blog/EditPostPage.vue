@@ -45,6 +45,8 @@
 <script>
 
     import { ModelSelect } from 'vue-search-select'
+    import { get_token } from '@/utils';
+
 
     export default {
         
@@ -77,7 +79,7 @@
                         method: "post",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );
@@ -98,7 +100,7 @@
                         method: "patch",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );

@@ -594,3 +594,35 @@ input::placeholder {
   background: #25b3bc;
   color: white;
 }
+
+input {
+  border: 1px solid #25b3bc;
+}
+
+input:-internal-autofill-selected {
+  background-color: #25b3bc20 !important;
+
+}
+
+#login {
+  width: 20rem;
+  display: block;
+  margin: 0 auto;
+}
+
+#login > * {
+  display: block;
+  width: 100%;
+}
+
+#login > button {
+  margin-top: 1rem;
+  background-color: white;
+  border: 1px solid #25b3bc;
+  color: #25b3bc;
+}
+
+#login > button:hover {
+  background-color: #25b3bc;
+  color: white;
+}

@@ -1,7 +1,7 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post?.title }}</div>
-            <div class="post-tools">
+            <div v-if="is_auth" class="post-tools">
                 <router-link
                     :to="{ name:'edit-post', params: {id: this.$route.params.id}}"
                     class="disable-decoration"
@@ -28,6 +28,8 @@
 </template>
     
 <script>
+    import { get_token, is_auth } from '@/utils';
+
     export default {
         
         data() {
@@ -36,6 +38,9 @@
             }
         },
         methods: {
+            is_auth(){
+                return is_auth();
+            },
             async get_post() {
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
@@ -51,7 +56,7 @@
                     {
                         method: "delete",
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );

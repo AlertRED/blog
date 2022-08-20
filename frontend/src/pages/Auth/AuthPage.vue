@@ -1,8 +1,11 @@
 <template>
     <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username" />
-        <input type="password" name="password" v-model="input.password" placeholder="Password" />
+        <label for="username">Login</label>
+        <input type="text" name="username" v-model="input.username"/>
+
+        <label for="password">Password</label>
+        <input type="password" name="password" v-model="input.password"/>
+
         <button type="button" v-on:click="login()">Login</button>
     </div>
 </template>
@@ -35,7 +38,14 @@
                     },
                 );
                 const content = await response.json();
-                localStorage.token = await content['token'];
+                    if (response.status == 200) {
+                    const storage = localStorage;
+                    const expiredTime = Date.now() + content['lifetime'] * 1000;
+                    storage.setItem('lifetime', content['lifetime']);
+                    storage.setItem('expiredTime', expiredTime);
+                    storage.setItem('token', content['token']);
+                    this.$router.push({name: 'blog'});
+                }
             }
         }
 

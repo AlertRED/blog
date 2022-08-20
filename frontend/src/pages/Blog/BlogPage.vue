@@ -90,7 +90,7 @@
                 this.get_posts_by_page();
             },
         },
-        computed:{
+        computed: {
             pages() {
                 let pages = [];
                 let start = 0;

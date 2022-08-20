@@ -1,5 +1,5 @@
 <template>
-    <form id="edit-category">
+    <form v-if="is_auth" id="edit-category">
         <template v-if="category_edit && new_category_tittle">
             <input v-model="new_category_tittle" placeholder="Edit category"/>
             <a href="#" v-on:click="save_category">Save</a>
@@ -8,7 +8,6 @@
             <input  v-model="new_category_tittle" placeholder="Create category"/>
             <a href="#" v-on:click="create_category">Create</a>
         </template>
-        
     </form>
     
     <ul id="categories">
@@ -25,8 +24,9 @@
 </template>
     
 <script>
-    export default {
+    import { get_token, is_auth } from '@/utils';
 
+    export default {
         data() {
             return {
                 categories: [],
@@ -35,8 +35,8 @@
             }
         },
         methods: {
-            moment() {
-                return moment();
+            is_auth(){
+                return is_auth();
             },
             async get_categories() {
                 const response = await fetch(
@@ -58,7 +58,7 @@
                         method: "post",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );
@@ -73,7 +73,7 @@
                     {
                         method: "delete",
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );
@@ -90,7 +90,7 @@
                         method: "put",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            Authorization: `Bearer ${get_token()}`,
                         },
                     },
                 );
