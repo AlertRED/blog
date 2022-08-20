@@ -10,10 +10,13 @@
   "dependencies": {
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.2.0",
+    "github-markdown-css": "^5.1.0",
     "mavon-editor": "^3.0.0-beta",
     "moment": "^2.29.4",
     "vue": "^3.2.37",
-    "vue-moment": "^4.1.0"
+    "vue-moment": "^4.1.0",
+    "vue-search-select": "^2.9.5",
+    "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

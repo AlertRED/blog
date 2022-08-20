@@ -5,7 +5,6 @@
                 <router-link
                     :to="{ name:'edit-post', params: {id: this.$route.params.id}}"
                     class="disable-decoration"
-                    @click=""
                 >
                     <span class="icon-pencil"></span>
                 </router-link>
@@ -23,18 +22,25 @@
                 </router-link>
             </li>
         </ul>
-        <div id="post-body">{{ post?.body }}</div>
+        <div class="markdown-body" v-html="markdown_body"></div>
     </div>
 </template>
     
 <script>
+    import { mavonEditor } from 'mavon-editor';
     import { get_token, is_auth } from '@/utils';
+    import "mavon-editor/dist/css/index.css"
 
     export default {
-        
         data() {
             return {
                 post: null,
+            }
+        },
+        computed: {
+            markdown_body() {
+                const markdownIt = mavonEditor.getMarkdownIt();
+                return markdownIt.render(this.post?.body || '');
             }
         },
         methods: {
