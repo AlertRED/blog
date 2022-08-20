@@ -40,7 +40,7 @@ a.disable-decoration {
 }
 
 body {
-  color: var(--color-unnoticeble);
+  color: var(--color-text);
 }
 
 hr {
@@ -71,6 +71,7 @@ input::placeholder {
   content: "/";
   margin-right: 1rem;
   margin-left: 1rem;
+  color: var(--color-unnoticeble);
 }
 
 #content {
@@ -611,6 +612,10 @@ input {
   width: 20rem;
   display: block;
   margin: 0 auto;
+}
+
+#login > label {
+  color: var(--color-simple)
 }
 
 #login > * {

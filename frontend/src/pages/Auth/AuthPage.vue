@@ -38,7 +38,7 @@
                     },
                 );
                 const content = await response.json();
-                    if (response.status == 200) {
+                if (response.status == 200) {
                     const storage = localStorage;
                     const expiredTime = Date.now() + content['lifetime'] * 1000;
                     storage.setItem('lifetime', content['lifetime']);
@@ -47,26 +47,7 @@
                     this.$router.push({name: 'blog'});
                 }
             }
-        }
-
-        // login: async function () {
-        //     const { username, password } = this
-            
-        //     const response = await fetch(
-        //             `http://127.0.0.1:8000/api/auth/login/`, 
-        //             {
-        //                 method: "post",
-        //                 body: {
-        //                     username: username,
-        //                     password: password,
-        //                 },
-        //                 headers:{ 
-        //                     'Content-Type': 'multipart/form-data',
-        //                 }
-        //             },
-        //         );
-        //     console.log(await response.json())
-        // }
-    }
+        },
+    },
   };
 </script>

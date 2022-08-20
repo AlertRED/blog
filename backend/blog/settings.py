@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,12 +129,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+MEDIA_URL = '/media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TOKEN_LIFETIME = 60 * 60
+TOKEN_LIFETIME = 3600
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]

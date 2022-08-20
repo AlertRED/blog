@@ -23,10 +23,9 @@
             <label>Category</label>
             <select v-model="category">
                 <option disabled value="">Выбор категории</option>
-                <option v-for="category in categories">{{ category.title }}</option>
+                <option v-for="_category in categories">{{ _category.title }}</option>
             </select>
         </div>
-
         
 
         <template v-if="is_edit">
@@ -43,10 +42,9 @@
 </template>
 
 <script>
-
-    import { ModelSelect } from 'vue-search-select'
-    import { get_token } from '@/utils';
-
+    import { ModelSelect } from 'vue-search-select';
+    import { mavonEditor } from 'mavon-editor';
+    import "mavon-editor/dist/css/index.css"
 
     export default {
         
@@ -60,6 +58,7 @@
         },
         components: {
             ModelSelect,
+            mavonEditor,
         },
         computed: {
             is_edit() {
@@ -117,6 +116,7 @@
                 const post = await response.json();
                 this.title = post.title;
                 this.body = post.body;
+                this.category = post.category;
             },
             async get_categories() {
                 const response = await fetch(

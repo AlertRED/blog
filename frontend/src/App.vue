@@ -15,6 +15,7 @@
 
 <script>
   import MainNavbar from './components/MainNavbar.vue';
+
   import { is_auth } from '@/utils';
 
   export default {

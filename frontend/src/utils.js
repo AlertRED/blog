@@ -3,8 +3,8 @@ export function get_token() {
     const token = storage.getItem('token');
     const expiredTime = storage.getItem('expiredTime');
     if (Date.now() < expiredTime){
-        const lifeTime = storage.getItem('lifeTime');
-        storage.setItem('expiredTime', Date.now() + lifeTime * 1000)
+        const lifeTime = storage.getItem('lifetime');
+        storage.setItem('expiredTime', Date.now() + lifeTime * 1000);
         return token;
     };
     return null;
