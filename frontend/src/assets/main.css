@@ -1,5 +1,13 @@
 @import "./base.css";
 
+
+:root {
+  --color-feature: #25b3bc;
+  --color-simple: #AAA;
+  --color-unnoticeble: #e5e7eb;
+  --color-text:#222;
+}
+
 header {
   position: sticky;
   z-index: 10;
@@ -11,17 +19,17 @@ header {
 }
 
 a {
-  color: #25b3bc;
+  color: var(--color-feature);
   text-decoration: none;
   
 }
 
 a:hover {
-  color: #25b3bc;
+  color: var(--color-feature);
   background-size: 100% 1px;
   background-repeat: repeat-x;
   background-position: 0 calc(100% - 1px);
-  background-image: linear-gradient(to right, #25b3bc 100%, rgba(255, 255, 255, 0) 0%);
+  background-image: linear-gradient(to right, var(--color-feature) 100%, rgba(255, 255, 255, 0) 0%);
 }
 
 a.disable-decoration {
@@ -32,12 +40,12 @@ a.disable-decoration {
 }
 
 body {
-  color: #e5e7eb;
+  color: var(--color-unnoticeble);
 }
 
 hr {
   height: 3px;
-  color: #AAA;
+  color: var(--color-simple);
 }
 
 input:focus-visible {
@@ -45,7 +53,7 @@ input:focus-visible {
 }
 
 input::placeholder {
- color: #e5e7eb;
+ color: var(--color-unnoticeble);
 }
 
 #menu {
@@ -90,7 +98,7 @@ input::placeholder {
 
 #posts > li.post > div.post-title {
   font-size: 1.2rem;
-  color: #25b3bc;
+  color: var(--color-feature);
   cursor: pointer;
 }
 
@@ -103,7 +111,7 @@ input::placeholder {
 }
 
 #posts > li.post > div.separator::after {
-  color: #AAA;
+  color: var(--color-simple);
   content: "–";
   margin-right: 1rem;
   margin-left: 1rem;
@@ -111,7 +119,7 @@ input::placeholder {
 
 #posts > li.post > div.post-date {
   font-size: 1rem;
-  color: #AAA;
+  color: var(--color-simple);
 }
 
 #posts > li.post > div.post-date::after {
@@ -136,8 +144,8 @@ input::placeholder {
 }
 
 #post-detail > div.post-tools > a {
-  color: #25b3bc;
-  border: 1px solid #25b3bc;
+  color: var(--color-feature);
+  border: 1px solid var(--color-feature);
   border-radius: 5px;
   cursor: pointer;
   padding: 0.5rem;
@@ -151,7 +159,7 @@ input::placeholder {
   display: block;
   font-size: 0.9rem;
   line-height: 1.3rem;
-  color: #25b3bc;
+  color: var(--color-feature);
   cursor: pointer;
 }
 
@@ -182,7 +190,7 @@ input::placeholder {
 #post-search > button {
   background: white;
   border: none;
-  color: #25b3bc;
+  color: var(--color-feature);
   font-size: 1.0rem;
   display: inline;
 }
@@ -190,13 +198,13 @@ input::placeholder {
 #post-search > input {
   flex-grow: 1;
   border: none;
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
   box-shadow: none;
 }
 
 #post-search > input:disabled {
   cursor: not-allowed;
-  border-bottom: 1px solid #AAA;
+  border-bottom: 1px solid var(--color-simple);
 }
 
 #filter-categories {
@@ -204,14 +212,14 @@ input::placeholder {
   margin-bottom: 0rem;
   min-height: 2rem;
   list-style-type: none;
-  color: #25b3bc;
+  color: var(--color-feature);
   padding-left: 0rem;
   font-size: 0.9rem;
   display: flex;
 }
 
 #filter-categories > li {
-  border: 1px solid #25b3bc;
+  border: 1px solid var(--color-feature);
   width: max-content;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -245,7 +253,7 @@ input::placeholder {
 #categories > li > div.options {
   position: absolute;
   display: none;
-  color: #25b3bc;
+  color: var(--color-feature);
   top: -1rem;
   justify-content: center;
   left: 0;
@@ -269,7 +277,7 @@ input::placeholder {
 
 #categories > li::before {
   content: "■";
-  color: #25b3bc;
+  color: var(--color-feature);
   font-size: 0.4rem;
   top: -15%;
   margin-right: 0.2rem;
@@ -285,8 +293,8 @@ input::placeholder {
   bottom: 1rem;
   right: 1rem;
   cursor: pointer;
-  color: #AAA;
-  border: 1px solid #aaa;
+  color: var(--color-simple);
+  border: 1px solid var(--color-simple);
   padding: 0.2rem;
 }
 
@@ -306,7 +314,7 @@ input::placeholder {
   display: none;
   margin-top: 0.5rem;
   margin-bottom: 0.2rem;
-  color: #AAA;
+  color: var(--color-simple);
 }
 
 #admin-menu:hover > hr {
@@ -314,7 +322,7 @@ input::placeholder {
 }
 
 #admin-menu > ul > li:hover {
-  color: #25b3bc;
+  color: var(--color-feature);
 }
 
 #pagination {
@@ -322,7 +330,7 @@ input::placeholder {
   width: 100%;
   display: inline-flex;
   justify-content: center;
-  color: #25b3bc;
+  color: var(--color-feature);
   list-style-type: none;
   position: absolute;
   bottom: 0;
@@ -337,7 +345,7 @@ input::placeholder {
 }
 
 #pagination > li.disabled {
-  color: #AAA;
+  color: var(--color-simple);
   cursor: default;
 }
 
@@ -346,7 +354,7 @@ input::placeholder {
 }
 
 #pagination > li.active {
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
 }
 
 #pagination > li:not(:last-child){
@@ -354,7 +362,7 @@ input::placeholder {
 }
 
 #pagination > li:hover:not(.disabled) {
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
   cursor: pointer;
 }
 
@@ -365,11 +373,11 @@ input::placeholder {
   font-size: 1.5rem;
   margin-bottom: 1px;
 
-  border: 1px solid #25b3bc;
+  border: 1px solid var(--color-feature);
   width: 1.7rem;
   height: 1.7rem;
   border-radius: 50%;
-  color: #25b3bc;
+  color: var(--color-feature);
   padding-bottom: 0.25rem;
   
   display: flex;
@@ -392,7 +400,7 @@ input::placeholder {
 #create-post > div > #post-title {
   flex-grow: 1;
   border: none;
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
   box-shadow: none;
   width: 100%;
   outline: none;
@@ -400,7 +408,7 @@ input::placeholder {
 }
 
 #create-post label {
-  color: #AAA;
+  color: var(--color-simple);
 }
 
 #create-post > div {
@@ -408,7 +416,7 @@ input::placeholder {
 }
 
 #create-post > #post-body {
-  border: 1px solid #25b3bc;
+  border: 1px solid var(--color-feature);
   box-shadow: none;
   flex-grow: 1;
   width: 100%;
@@ -417,14 +425,14 @@ input::placeholder {
 
 #create-post > a {
   outline: none;
-  border: 1px solid #25b3bc;
+  border: 1px solid var(--color-feature);
   background: white;
-  color: #25b3bc;
+  color: var(--color-feature);
   padding: 0.2rem 1.0rem 0.2rem 1.0rem;
 }
 
 #create-post > a:hover {
-  background: #25b3bc;
+  background: var(--color-feature);
   color: white;
 }
 
@@ -436,18 +444,18 @@ input::placeholder {
   outline: none;
   border: none;
   background: white;
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
 }
 
 #post-detail > #post-title {
-  color: #25b3bc;
+  color: var(--color-feature);
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
 #post-detail > #post-categories {
-  color: #25b3bc;
+  color: var(--color-feature);
   list-style-type: none;
 
   flex-wrap: wrap;
@@ -479,11 +487,11 @@ input::placeholder {
 }
 
 #post-detail > #post-body {
-  color: #AAA;
+  color: var(--color-simple);
 }
 
 #accounts {
-  color: black;
+  color: var(--color-text);
   margin-left: auto;
   margin-right: auto;
 }
@@ -506,7 +514,7 @@ input::placeholder {
 }
 
 #accounts > ul > li:hover > span.social-contact {
-  color: #25b3bc;
+  color: var(--color-feature);
 }
 
 #accounts > ul > li > span.social-name {
@@ -523,11 +531,11 @@ input::placeholder {
   margin-right: 0.6rem;
   vertical-align: middle;
   display: inline-block;
-  color: #25b3bc;
+  color: var(--color-feature);
 }
 
 #skills {
-  color: black;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
@@ -548,13 +556,13 @@ input::placeholder {
 }
 
 #skills > ul > li {
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
   padding-bottom: 0.1rem;
   margin-bottom: 1rem;
 }
 
 #about-me {
-  color: black;
+  color: var(--color-text);
   font-size: 1rem;
   margin-bottom: 2rem;
 }
@@ -575,7 +583,7 @@ input::placeholder {
 #edit-category > input{
   flex-grow: 1;
   border: none;
-  border-bottom: 1px solid #25b3bc;
+  border-bottom: 1px solid var(--color-feature);
   box-shadow: none;
   display: block;
   margin-right: 1rem;
@@ -583,25 +591,20 @@ input::placeholder {
 
 #edit-category > a {
   outline: none;
-  border: 1px solid #25b3bc;
+  border: 1px solid var(--color-feature);
   background: white;
-  color: #25b3bc;
+  color: var(--color-feature);
   padding: 0rem 1.0rem 0rem 1.0rem;
   cursor: pointer;
 }
 
 #edit-category > a:hover {
-  background: #25b3bc;
+  background: var(--color-feature);
   color: white;
 }
 
 input {
-  border: 1px solid #25b3bc;
-}
-
-input:-internal-autofill-selected {
-  background-color: #25b3bc20 !important;
-
+  border: 1px solid var(--color-feature);
 }
 
 #login {
@@ -618,11 +621,11 @@ input:-internal-autofill-selected {
 #login > button {
   margin-top: 1rem;
   background-color: white;
-  border: 1px solid #25b3bc;
-  color: #25b3bc;
+  border: 1px solid var(--color-feature);
+  color: var(--color-feature);
 }
 
 #login > button:hover {
-  background-color: #25b3bc;
+  background-color: var(--color-feature);
   color: white;
 }
