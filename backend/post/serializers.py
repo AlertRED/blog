@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Post
+from .models import Category, Post, PostFile
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -48,3 +48,10 @@ class PostSerializer(serializers.ModelSerializer):
         format='%d-%m-%Y',
         read_only=True,
     )
+
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PostFile
+        fields = '__all__'

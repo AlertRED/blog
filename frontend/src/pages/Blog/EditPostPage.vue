@@ -9,12 +9,14 @@
         </div>
         <div id="post-body">
             <mavon-editor
+                @imgAdd="$imgAdd"
+                @imgDel="$imgDel"
                 defaultOpen="preview"
                 language="en"
                 fontSize="1rem"
                 :boxShadow=false
-                placeholder=" "
                 :tabSize=4
+                placeholder=" "
                 v-model="body"
             />
         </div>
@@ -66,6 +68,20 @@
             }
         },
         methods: {
+            $imgAdd(pos, $file){
+                // step 1. upload image to server.
+                var formdata = new FormData();
+                formdata.append('image', $file);
+                axios({
+                    url: 'http://127.0.0.1:8000/api/posts/',
+                    method: 'post',
+                    data: formdata,
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                }).then((url) => {
+                    // step 2. replace url ![...](0) -> ![...](url)
+                    $vm.$img2Url(pos, url);
+                })
+            },
             async create_post(){
                 let bodyContent = new FormData();
                 bodyContent.append('title', this.title);

@@ -1,11 +1,19 @@
 from django.contrib import admin
-from django.urls import include, re_path
-from rest_framework import permissions
 from drf_yasg.views import get_schema_view
+from django.urls import include, re_path
+from django.conf import settings
+from django.conf.urls.static import static
 from drf_yasg import openapi
+from rest_framework import permissions
 
 from contact.views import ContactView
-from post.views import PostView, CategoryView, PostByCategoryView
+from post.views import (
+    FilePostCreateView,
+    FilePostGetView,
+    PostView,
+    CategoryView,
+    PostByCategoryView,
+)
 from core.views import AuthView, KeyValueView
 
 
@@ -138,4 +146,17 @@ urlpatterns = [
         name='api_contact_get_put_patch_delete',
     ),
     re_path('api-auth/', include('rest_framework.urls')),
+    re_path(
+        'api/post-files/',
+        FilePostCreateView.as_view(),
+        name='api_post_file_create',
+    ),
+    re_path(
+        'api/post-file/(?P<pk>[0-9A-Fa-f-]+)/',
+        FilePostGetView.as_view(),
+        name='api_post_file_get',
+    ),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
