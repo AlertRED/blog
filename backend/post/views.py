@@ -1,15 +1,18 @@
-from rest_framework import viewsets, mixins
+from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework import filters
+from rest_framework.response import Response
+
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .pagination import PostPagination, CategoryPagination
 from .filters import PostFilter
 from .models import Post, Category, PostFile
 from .serializers import (
-    FileSerializer,
+    FileCreateSerializer,
+    FileGetSerializer,
     PostSerializer,
     CategorySerializer,
 )
@@ -49,10 +52,20 @@ class PostByCategoryView(mixins.ListModelMixin, GenericViewSet):
 class FilePostCreateView(CreateAPIView):
     """"""
     queryset = PostFile.objects.all()
-    serializer_class = FileSerializer
+    serializer_class = FileCreateSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        instance = serializer.save()
+        return Response(FileGetSerializer(instance).data)
 
 
 class FilePostGetView(RetrieveAPIView):
     """"""
     queryset = PostFile.objects.all()
-    serializer_class = FileSerializer
+    serializer_class = FileGetSerializer

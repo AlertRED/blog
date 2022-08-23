@@ -42,8 +42,6 @@ class PostFile(BaseModel):
     path = models.FileField(
         verbose_name='Путь к файлу',
         upload_to=post_file_name,
-        blank=True,
-        null=True,
     )
 
     @property

@@ -50,8 +50,18 @@ class PostSerializer(serializers.ModelSerializer):
     )
 
 
-class FileSerializer(serializers.ModelSerializer):
+class FileCreateSerializer(serializers.ModelSerializer):
+
+    file = serializers.FileField(source='path')
 
     class Meta:
         model = PostFile
-        fields = '__all__'
+        fields = ('id', 'file', 'created', 'updated')
+
+
+class FileGetSerializer(serializers.ModelSerializer):
+    url = serializers.FileField(source='path')
+
+    class Meta:
+        model = PostFile
+        fields = ('id', 'url', 'created', 'updated')

@@ -9,8 +9,8 @@
         </div>
         <div id="post-body">
             <mavon-editor
+                ref="me"
                 @imgAdd="$imgAdd"
-                @imgDel="$imgDel"
                 defaultOpen="preview"
                 language="en"
                 fontSize="1rem"
@@ -46,6 +46,7 @@
 <script>
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
+    import { get_token } from '@/utils';
     import "mavon-editor/dist/css/index.css"
 
     export default {
@@ -68,19 +69,36 @@
             }
         },
         methods: {
-            $imgAdd(pos, $file){
-                // step 1. upload image to server.
+            async $imgAdd(pos, $file){
                 var formdata = new FormData();
-                formdata.append('image', $file);
-                axios({
-                    url: 'http://127.0.0.1:8000/api/posts/',
-                    method: 'post',
-                    data: formdata,
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                }).then((url) => {
-                    // step 2. replace url ![...](0) -> ![...](url)
-                    $vm.$img2Url(pos, url);
-                })
+                formdata.append('file', $file);
+                const response = await fetch(
+                    `http://127.0.0.1:8000/api/post-files/`, 
+                    {
+                        method: "post",
+                        body: formdata,
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
+                    },
+                );
+
+                const content = await response.json();
+                this.$refs.me.$img2Url(pos, 'http://127.0.0.1:8000' + content.url);
+                
+
+                // step 1. upload image to server.
+                // var formdata = new FormData();
+                // formdata.append('image', $file);
+                // axios({
+                //     url: 'http://127.0.0.1:8000/api/posts/',
+                //     method: 'post',
+                //     data: formdata,
+                //     headers: { 'Content-Type': 'multipart/form-data' },
+                // }).then((url) => {
+                //     // step 2. replace url ![...](0) -> ![...](url)
+                    // $vm.$img2Url(pos, url);
+                // })
             },
             async create_post(){
                 let bodyContent = new FormData();
