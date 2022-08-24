@@ -82,23 +82,8 @@
                         },
                     },
                 );
-
                 const content = await response.json();
                 this.$refs.me.$img2Url(pos, 'http://127.0.0.1:8000' + content.url);
-                
-
-                // step 1. upload image to server.
-                // var formdata = new FormData();
-                // formdata.append('image', $file);
-                // axios({
-                //     url: 'http://127.0.0.1:8000/api/posts/',
-                //     method: 'post',
-                //     data: formdata,
-                //     headers: { 'Content-Type': 'multipart/form-data' },
-                // }).then((url) => {
-                //     // step 2. replace url ![...](0) -> ![...](url)
-                    // $vm.$img2Url(pos, url);
-                // })
             },
             async create_post(){
                 let bodyContent = new FormData();
@@ -138,7 +123,7 @@
                     },
                 );
                 if (await response.status == 200)
-                    this.$router.push({name:'post-detail', params: { id: this.$route.params.id }});
+                    this.$router.push({name:'PostDetail', params: { id: this.$route.params.id }});
             },
             async get_post(id){
                 const response = await fetch(

@@ -44,7 +44,7 @@
                     storage.setItem('lifetime', content['lifetime']);
                     storage.setItem('expiredTime', expiredTime);
                     storage.setItem('token', content['token']);
-                    this.$router.push({name: 'blog'});
+                    this.$router.push({name: 'Blog'});
                 }
             }
         },

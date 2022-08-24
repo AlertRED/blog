@@ -1,7 +1,7 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post?.title }}</div>
-            <div v-if="is_auth" class="post-tools">
+            <div v-if="is_auth()" class="post-tools">
                 <router-link
                     :to="{ name:'edit-post', params: {id: this.$route.params.id}}"
                     class="disable-decoration"
@@ -17,7 +17,7 @@
             </div>
         <ul id="post-categories">
             <li v-for="category in post?.categories" :key="index">
-                <router-link :to="{ name:'blog', params: { category: category }}">
+                <router-link :to="{ name:'Blog', params: { category: category }}">
                     {{ category }}
                 </router-link>
             </li>
@@ -68,7 +68,7 @@
                 );
                 const status = await response.status;
                 if (status == 204)
-                    this.$router.push({name: 'blog'});
+                    this.$router.push({name: 'Blog'});
             },
         },
         beforeMount() {

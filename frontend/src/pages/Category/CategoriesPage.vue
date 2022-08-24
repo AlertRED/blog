@@ -1,5 +1,5 @@
 <template>
-    <form v-if="is_auth" id="edit-category">
+    <form v-if="is_auth()" id="edit-category">
         <template v-if="category_edit && new_category_tittle">
             <input v-model="new_category_tittle" placeholder="Edit category"/>
             <a href="#" v-on:click="save_category">Save</a>
@@ -13,7 +13,7 @@
     <ul id="categories">
       <template v-for="category in categories">
         <li>
-            <router-link :to="{ name:'blog', query: { category: category.title }}">{{ category.title }}</router-link>
+            <router-link :to="{ name:'Blog', query: { category: category.title }}">{{ category.title }}</router-link>
             <div class="options">
                 <span @click="() => { this.category_edit = category; new_category_tittle = category.title; }" class="icon-pencil"></span>
                 <span @click="delete_category(category.id)" class="icon-bin"></span>

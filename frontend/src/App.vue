@@ -3,10 +3,10 @@
   <div id="content">
     <router-view/>
   </div>
-  <div v-if="is_auth" id="admin-menu">
+  <div v-if="is_auth()" id="admin-menu">
     <ul>
-      <li><router-link :to="{ name:'create-post'}">Create post</router-link></li>      
-      <li><router-link :to="{ name:'create-post'}">Draft</router-link></li>
+      <li><router-link :to="{ name:'CreatePost'}">Create post</router-link></li>      
+      <li><router-link :to="{ name:'CreatePost'}">Draft</router-link></li>
     </ul>
     <hr/>
     menu
