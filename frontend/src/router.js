@@ -40,6 +40,11 @@ const routes = [
     path: '/post-detail/:id',
     name: 'PostDetail',
     component: () => import('./pages/Blog/PostDetailPage.vue'),
+  },
+  { 
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('./components/404.vue'),
   }
 ]
 

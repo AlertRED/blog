@@ -54,7 +54,10 @@
                         method: "get",
                     },
                 );
-                this.post = await response.json();
+                if (response.status == 200)
+                    this.post = await response.json();
+                else
+                    this.$router.push({name: 'NotFound  '});
             },
             async delete_post() {
                 const response = await fetch(
