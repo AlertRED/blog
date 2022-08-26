@@ -14,7 +14,7 @@
       <template v-for="category in categories">
         <li>
             <router-link :to="{ name:'Blog', query: { category: category.title }}">{{ category.title }}</router-link>
-            <div class="options">
+            <div v-if="is_auth()" class="options">
                 <span @click="() => { this.category_edit = category; new_category_tittle = category.title; }" class="icon-pencil"></span>
                 <span @click="delete_category(category.id)" class="icon-bin"></span>
             </div>
@@ -24,6 +24,7 @@
 </template>
     
 <script>
+    import "./category.css";
     import { get_token, is_auth } from '@/utils';
 
     export default {

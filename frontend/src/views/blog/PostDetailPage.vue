@@ -3,7 +3,7 @@
         <div id="post-title">{{ post?.title }}</div>
             <div v-if="is_auth()" class="post-tools">
                 <router-link
-                    :to="{ name:'edit-post', params: {id: this.$route.params.id}}"
+                    :to="{ name:'EditPost', params: {id: this.$route.params.id}}"
                     class="disable-decoration"
                 >
                     <span class="icon-pencil"></span>
@@ -27,9 +27,11 @@
 </template>
     
 <script>
+    import "./blog.css";
+    import "mavon-editor/dist/css/index.css"
+
     import { mavonEditor } from 'mavon-editor';
     import { get_token, is_auth } from '@/utils';
-    import "mavon-editor/dist/css/index.css"
 
     export default {
         data() {

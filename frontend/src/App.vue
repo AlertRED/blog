@@ -6,7 +6,6 @@
   <div v-if="is_auth()" id="admin-menu">
     <ul>
       <li><router-link :to="{ name:'CreatePost'}">Create post</router-link></li>      
-      <li><router-link :to="{ name:'CreatePost'}">Draft</router-link></li>
     </ul>
     <hr/>
     menu
@@ -15,7 +14,6 @@
 
 <script>
   import MainNavbar from './components/MainNavbar.vue';
-
   import { is_auth } from '@/utils';
 
   export default {

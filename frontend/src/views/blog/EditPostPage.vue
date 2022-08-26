@@ -44,10 +44,12 @@
 </template>
 
 <script>
+    import "./blog.css";
+    import "mavon-editor/dist/css/index.css"
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
     import { get_token } from '@/utils';
-    import "mavon-editor/dist/css/index.css"
+
 
     export default {
         
@@ -104,7 +106,7 @@
                 const content = await response.json();
                 if (await response.status == 201){
                     const post_id = content['id'];
-                    this.$router.push({name:'post-detail', params: { id: post_id }});
+                    this.$router.push({name:'PostDetail', params: { id: post_id }});
                 }
             },
             async save_post(){
@@ -156,3 +158,21 @@
   };
 
 </script>
+
+<style type="text/css">
+    .markdown-body, .content-input-wrapper, .auto-textarea-input, .v-show-content, .v-note-op {
+        background-color: var(--color-background) !important;
+    }
+
+    .v-note-wrapper {
+        border: none;
+    }
+
+    .v-note-wrapper .v-note-op {
+        border-bottom: 1px solid var(--color-background) !important;
+    }
+
+    .v-note-wrapper .v-note-op .v-left-item .op-icon.selected, .v-note-wrapper .v-note-op .v-right-item .op-icon.selected {
+        background: var(--color-background) !important;
+    }
+</style>

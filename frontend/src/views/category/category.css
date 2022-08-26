@@ -1,0 +1,82 @@
+@import "../../assets/base.css";
+
+#edit-category {
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 20rem;
+}
+
+#edit-category > input {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid var(--color-feature);
+  box-shadow: none;
+  display: block;
+  margin-right: 1rem;
+}
+
+#edit-category > a {
+  outline: none;
+  border: 1px solid var(--color-feature);
+  background:  var(--color-background);
+  color: var(--color-feature);
+  padding: 0rem 1rem 0rem 1rem;
+  cursor: pointer;
+}
+
+#edit-category > a:hover {
+  background: var(--color-feature);
+  color: var(--color-background);
+}
+
+#categories {
+  flex-wrap: wrap;
+  display: inline-flex;
+  justify-content: center;
+}
+
+#categories > li {
+  display: inline;
+  position: relative;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+#categories > li > div.options {
+  position: absolute;
+  display: none;
+  color: var(--color-feature);
+  top: -1rem;
+  justify-content: center;
+  left: 0;
+  width: 100%;
+  font-size: 0.8rem;
+}
+
+#categories > li > div.options > span {
+  padding: 0.2rem 0.2rem 0.2rem 0.2rem;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+#categories > li:hover > div.options {
+  display: flex;
+}
+
+#categories > li > div.options > span:hover {
+  opacity: 1;
+}
+
+#categories > li::before {
+  content: "■";
+  color: var(--color-feature);
+  font-size: 0.4rem;
+  top: -15%;
+  margin-right: 0.2rem;
+}
+
+#categories > li:not(:last-child) {
+  margin-right: 2rem;
+}

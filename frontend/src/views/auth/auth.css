@@ -1,0 +1,28 @@
+@import "../../assets/base.css";
+
+#login {
+    width: 20rem;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  #login > label {
+    color: var(--color-simple)
+  }
+  
+  #login > * {
+    display: block;
+    width: 100%;
+  }
+  
+  #login > button {
+    margin-top: 1rem;
+    background-color:  var(--color-background);
+    border: 1px solid var(--color-feature);
+    color: var(--color-feature);
+  }
+  
+  #login > button:hover {
+    background-color: var(--color-feature);
+    color:  var(--color-background);
+  }

@@ -2,27 +2,20 @@
     <div id="about-me">
         <h3>About me</h3>
         <div>
-            My name is Alexander, I am a Python web application developer mainly. 
-            I am also in love with science and learning. 
-            I have a bachelor's degree from the Don State Technical University and a master's degree from the Harbin Institute of Technology. 
+            My name is Alexander, I am a Python web application developer mainly.
+            I am also in love with science and learning.
+            I have a bachelor's degree from the Don State Technical University and a master's degree from the Harbin
+            Institute of Technology.
             Also I want to get my PhD in China in the future, preferably.
         </div>
     </div>
     <div id="skills">
         <h3>Main skills</h3>
         <ul>
-            <li>
-                Python
-            </li>
-            <li>
-                Django
-            </li>
-            <li>
-                Flask
-            </li>
-            <li>
-               Vue
-            </li>
+            <li>Python</li>
+            <li>Django</li>
+            <li>Flask</li>
+            <li>Vue</li>
         </ul>
     </div>
     <div id="accounts">
@@ -50,21 +43,23 @@
             </li>
         </ul>
     </div>
-    
+
 </template>
     
 <script>
-    export default {
-        methods: {
-            go_telegram () {
-                window.open('https://t.me/saboteur_man', '_blank');
-            },
-            go_github () {
-                window.open('https://github.com/AlertRED', '_blank');
-            },
-            go_email () {
-                window.open('mailto:drammtv@gmail.com', '_blank');
-            },
+import "./about.css";
+
+export default {
+    methods: {
+        go_telegram() {
+            window.open('https://t.me/saboteur_man', '_blank');
         },
-    }
+        go_github() {
+            window.open('https://github.com/AlertRED', '_blank');
+        },
+        go_email() {
+            window.open('mailto:drammtv@gmail.com', '_blank');
+        },
+    },
+}
 </script>

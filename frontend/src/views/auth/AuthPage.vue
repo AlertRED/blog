@@ -1,10 +1,10 @@
 <template>
     <div id="login">
         <label for="username">Login</label>
-        <input type="text" name="username" v-model="input.username"/>
+        <input type="text" name="username" v-model="input.username" />
 
         <label for="password">Password</label>
-        <input type="password" name="password" v-model="input.password"/>
+        <input type="password" name="password" v-model="input.password" />
 
         <button type="button" v-on:click="login()">Login</button>
     </div>
@@ -13,7 +13,9 @@
 
 <script>
 
-  export default {
+import "./auth.css";
+
+export default {
     data() {
         return {
             input: {
@@ -24,8 +26,8 @@
     },
     methods: {
         async login() {
-            if(this.input.username != "" && this.input.password != "") {
-                
+            if (this.input.username != "" && this.input.password != "") {
+
                 let bodyContent = new FormData();
                 bodyContent.append("username", this.input.username);
                 bodyContent.append("password", this.input.password);
@@ -44,10 +46,10 @@
                     storage.setItem('lifetime', content['lifetime']);
                     storage.setItem('expiredTime', expiredTime);
                     storage.setItem('token', content['token']);
-                    this.$router.push({name: 'Blog'});
+                    this.$router.push({ name: 'Blog' });
                 }
             }
         },
     },
-  };
+};
 </script>

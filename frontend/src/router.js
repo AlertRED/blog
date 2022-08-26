@@ -7,39 +7,39 @@ const routes = [
   { 
     path: '/auth',
     name: 'Auth',
-    component: () => import('./pages/Auth/AuthPage.vue'),
+    component: () => import('./views/auth/AuthPage.vue'),
   },
   { 
     path: '/about',
     name: 'About',
-    component: () => import('./pages/About/AboutPage.vue'),
+    component: () => import('./views/about/AboutPage.vue'),
     alias: '/',
   },
   { 
     path: '/blog',
     name: 'Blog',
-    component: () => import('./pages/Blog/BlogPage.vue'),
+    component: () => import('./views/blog/BlogPage.vue'),
   },
   { 
     path: '/create-post',
     name: 'CreatePost',
-    component: () => import('./pages/Blog/EditPostPage.vue'),
+    component: () => import('./views/blog/EditPostPage.vue'),
     meta: { requiresAuth: true },
   },
   { 
     path: '/edit-post/:id',
     name: 'EditPost',
-    component: () => import('./pages/Blog/EditPostPage.vue'),
+    component: () => import('./views/blog/EditPostPage.vue'),
   },
   { 
     path: '/categories',
     name: 'Categories',
-    component: () => import('./pages/Category/CategoriesPage.vue'),
+    component: () => import('./views/category/CategoriesPage.vue'),
   },
   { 
     path: '/post-detail/:id',
     name: 'PostDetail',
-    component: () => import('./pages/Blog/PostDetailPage.vue'),
+    component: () => import('./views/blog/PostDetailPage.vue'),
   },
   { 
     path: '/:pathMatch(.*)*',
