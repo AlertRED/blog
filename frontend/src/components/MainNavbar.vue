@@ -1,15 +1,15 @@
 <template>
     <header>
         <ul id="menu">
-            <li><router-link :to="{ name:'About'}">About</router-link></li>
-            <li><router-link :to="{ name:'Blog'}">Blog</router-link></li>
-            <li><router-link :to="{ name:'Categories'}">Categories</router-link></li>
-            <li><a href="#">CV</a></li>
+            <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
+            <li><router-link :class="`brightness-hover`" :to="{ name:'Blog'}">Blog</router-link></li>
+            <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
+            <li><a :class="`brightness-hover`" href="#">CV</a></li>
         </ul>
         <div 
             id="change-theme"
-            :class="(theme_name == 'light') ? 'icon-weather-sunny' : 'icon-moon-o'"
-            @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light')}"
+            :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }"
+            @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light') }"
         >
         </div>
     </header>

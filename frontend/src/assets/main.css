@@ -22,23 +22,26 @@ header {
   position: sticky;
   z-index: 10;
   top: 0;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
   background: var(--color-background-header);
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
-  width: calc(70rem - (2rem * 2));
+  width: var(--width-content);
   margin: 0 auto;
 }
 
 a {
   color: var(--color-feature);
   text-decoration: none;
-  
 }
 
 a:hover {
+  color: var(--color-feature);
+}
+
+.underline-decoration:hover {
   color: var(--color-feature);
   background-size: 100% 1px;
   background-repeat: repeat-x;
@@ -46,12 +49,17 @@ a:hover {
   background-image: linear-gradient(to right, var(--color-feature) 100%, rgba(255, 255, 255, 0) 0%);
 }
 
-a.disable-decoration {
+.brightness-hover:hover {
+  filter: brightness(80%);
+  transition: 0.25s;
+}
+
+/* .brightness-hover {
   background-size: inherit;
   background-repeat: inherit;
   background-position: inherit;
   background-image: inherit;
-}
+} */
 
 body {
   color: var(--color-text);
@@ -93,11 +101,9 @@ input::placeholder {
 }
 
 #content {
-  max-width: calc(70rem - (2rem * 2));
+  max-width: var(--width-content);
   margin-right: auto;
   margin-left: auto;
-  padding-right: 2rem;
-  padding-left: 2rem;
   position: relative;
   min-height: 80vh;
 }
@@ -154,13 +160,29 @@ input {
 
 #change-theme {
   border: 1px solid var(--color-feature);
-  border-radius: 5px;
+  /* border-radius: 5px; */
   padding: 0.3rem;
-  color: var(--color-feature);
+  color: var(--color-background);
+  background: var(--color-feature);
   cursor: pointer;
-  /* font-size: 1rem; */
+  font-size: 1rem;
   height: fit-content;
-  right: 0;
+  left: 0;
   position: absolute;
+  transition: 0.10s;
+}
+
+#change-theme.moved {
+  transform: rotate(360deg);
+  transition: .10s;
+  /* background: var(--color-feature);
+  color: var(--color-background); */
+}
+
+.icon-moon-o::before {
+    aspect-ratio: 1 / 1;
+    display: block;
+    text-align: center;
+    width: 1rem;
 }
 

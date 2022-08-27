@@ -4,12 +4,12 @@
             <div v-if="is_auth()" class="post-tools">
                 <router-link
                     :to="{ name:'EditPost', params: {id: this.$route.params.id}}"
-                    class="disable-decoration"
+                    class="brightness-hover"
                 >
                     <span class="icon-pencil"></span>
                 </router-link>
                 <a 
-                    class="disable-decoration"
+                    class="brightness-hover"
                     @click="delete_post"
                 >
                     <span class="icon-bin"></span>

@@ -27,14 +27,13 @@
         <template v-for="post in posts">
             <li class="post">
                 <div class="post-title">
-                    <router-link :to="{ name:'PostDetail', params: { id: post.id }}">{{ post.title }}</router-link>
+                    <router-link :class="`brightness-hover`" :to="{ name:'PostDetail', params: { id: post.id }}">{{ post.title }}</router-link>
                 </div>
                 <div class="separator"></div>
                 <div :class="`post-date`" :data-date="moment(post.created)"></div>
-                
 
                 <div 
-                    class="category"
+                    :class="`category brightness-hover`"
                     v-on:click="this.$router.push({name: 'Blog', query: { category: add_to_categories(post.category) }})"
                 >
                     {{ post.category }}
