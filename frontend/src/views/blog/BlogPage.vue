@@ -31,6 +31,7 @@
                 </div>
                 <div class="separator"></div>
                 <div :class="`post-date`" :data-date="moment(post.created)"></div>
+                <div v-if="post.is_draft" :class="`post-draft icon-low-vision`" data-tooltip="draft"></div>
 
                 <div 
                     :class="`category brightness-hover`"
@@ -69,6 +70,7 @@
 <script>
     import "./blog.css";
     import moment from "moment";
+    import { get_token } from '@/utils';
 
     export default {
         
@@ -138,6 +140,9 @@
                     (this.$route.query.category ? `&category=${this.$route.query.category}` : ''), 
                     {
                         method: "get",
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
                     },
                 );
                 const content = await response.json();

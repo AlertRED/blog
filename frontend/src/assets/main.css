@@ -41,6 +41,10 @@ a:hover {
   color: var(--color-feature);
 }
 
+label {
+  color: var(--color-simple);
+}
+
 .underline-decoration:hover {
   color: var(--color-feature);
   background-size: 100% 1px;

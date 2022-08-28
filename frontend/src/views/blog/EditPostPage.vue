@@ -6,7 +6,9 @@
                 id="post-title"
                 v-model="title"
             />
+
         </div>
+        
         <div id="post-body">
             <mavon-editor
                 ref="me"
@@ -21,14 +23,20 @@
             />
         </div>
         
-        <div id="post-category">
-            <label>Category</label>
-            <select v-model="category">
-                <option disabled value="">Выбор категории</option>
-                <option v-for="_category in categories">{{ _category.title }}</option>
-            </select>
+        <div id="post-options">
+            <div class="select">
+                <label>Category</label>
+                <select v-model="category">
+                    <option disabled value="">Выбор категории</option>
+                    <option v-for="_category in categories">{{ _category.title }}</option>
+                </select>
+            </div>
+            
+            <div class="checkbox">
+                <input type="checkbox" name="is-draft" value="is-draft" v-model="is_draft">
+                <label for="is-draft">Draft</label> 
+            </div>
         </div>
-        
 
         <template v-if="is_edit">
             <a href="#" v-on:click="save_post">Save</a>
@@ -57,6 +65,7 @@
             return {
                 title: null,
                 body: null,
+                is_draft: true,
                 category: null,
                 categories: [],
             }
@@ -92,6 +101,7 @@
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
                 bodyContent.append('category', this.category);
+                bodyContent.append('is_draft', this.is_draft);
                 
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/posts/`, 
@@ -114,6 +124,8 @@
                 bodyContent.append('title', this.title);
                 bodyContent.append('body', this.body);
                 bodyContent.append('category', this.category);
+                bodyContent.append('is_draft', this.is_draft);
+
                 const response = await fetch(
                     `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
                     {
@@ -132,11 +144,15 @@
                     `http://127.0.0.1:8000/api/post/${id}/`, 
                     {
                         method: "get",
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
                     },
                 );
                 const post = await response.json();
                 this.title = post.title;
                 this.body = post.body;
+                this.is_draft = post.is_draft;
                 this.category = post.category;
             },
             async get_categories() {
@@ -144,6 +160,9 @@
                     `http://127.0.0.1:8000/api/categories`, 
                     {
                         method: "get",
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
                     },
                 );
                 const content = await response.json();

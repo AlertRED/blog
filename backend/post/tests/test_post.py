@@ -69,12 +69,14 @@ class PostCreateTestCase(BasicAPITestCase):
 
 class PostGetListTestCase(BasicAPITestCase):
 
-    def _request(self):
+    def _request(self, is_auth: bool = True):
+        if is_auth:
+            self._auth(UserFactory())
         return self.client.get(
             reverse('api_post_create_list'),
         )
 
-    def test_success_get_list_post(self):
+    def test_success_get_list_posts(self):
         count_posts = randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
         for _ in range(count_posts):
             PostFactory()
@@ -84,6 +86,27 @@ class PostGetListTestCase(BasicAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()['results']), count_posts)
         self.assertEqual(len(Post.objects.all()), count_posts)
+
+    def test_success_get_list_posts_in_draft_without_auth(self):
+        count_posts_not_as_draft = \
+            randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
+        for _ in range(count_posts_not_as_draft):
+            PostFactory()
+        count_posts_as_draft = randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
+        for _ in range(count_posts_as_draft):
+            PostFactory(is_draft=True)
+
+        response = self._request(is_auth=False)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            len(response.json()['results']),
+            count_posts_not_as_draft,
+        )
+        self.assertEqual(
+            len(Post.objects.all()),
+            count_posts_not_as_draft + count_posts_as_draft,
+        )
 
 
 class PostGetTestCase(BasicAPITestCase):

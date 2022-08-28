@@ -32,6 +32,11 @@ class PostView(viewsets.ModelViewSet):
     filterset_class = PostFilter
     pagination_class = PostPagination
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Post.objects.all()
+        return Post.objects.filter(is_draft=False)
+
 
 class CategoryView(viewsets.ModelViewSet):
     serializer_class = CategorySerializer

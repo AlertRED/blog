@@ -54,6 +54,9 @@
                     `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
                     {
                         method: "get",
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
                     },
                 );
                 if (response.status == 200)

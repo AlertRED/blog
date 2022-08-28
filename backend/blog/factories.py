@@ -33,6 +33,7 @@ class PostFactory(factory.django.DjangoModelFactory):
 
     title = LazyFuzzyText()
     body = LazyFuzzyText()
+    is_draft = False
     category = factory.SubFactory(CategoryFactory)
 
 
