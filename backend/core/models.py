@@ -36,7 +36,7 @@ class UUIDPKModel(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid1,
-        editable=False
+        editable=False,
     )
 
 
@@ -58,17 +58,17 @@ class KeyValue(BaseModel):
         max_length=128,
         null=False,
         unique=True,
-        verbose_name='Ключ'
+        verbose_name='Ключ',
     )
     value = models.CharField(
         max_length=65536,
-        verbose_name='Значение'
+        verbose_name='Значение',
     )
     type = models.CharField(
         choices=TYPES,
         null=False,
         max_length=32,
-        verbose_name='Тип ключа'
+        verbose_name='Тип ключа',
     )
 
     def __str__(self) -> str:
@@ -84,21 +84,21 @@ class BasePost(BaseModel):
     title = models.CharField(
         max_length=128,
         unique=True,
-        verbose_name='Название поста'
+        verbose_name='Название поста',
     )
     body = models.CharField(
         max_length=65536,
-        verbose_name='Содержание поста'
+        verbose_name='Содержание поста',
     )
     is_deleted = models.BooleanField(
         null=False,
         default=False,
-        verbose_name='Объект удален'
+        verbose_name='Объект удален',
     )
     is_draft = models.BooleanField(
         null=False,
         default=True,
-        verbose_name='Черновик'
+        verbose_name='Черновик',
     )
 
     def __str__(self) -> str:

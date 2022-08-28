@@ -16,7 +16,7 @@ class PostCreateTestCase(BasicAPITestCase):
         self.data = {
             'title': FuzzyText().fuzz(),
             'body': FuzzyText().fuzz(),
-            'category': CategoryFactory().title
+            'category': CategoryFactory().title,
         }
 
     def _request(self, data: dict, is_auth: bool = True):
@@ -124,7 +124,7 @@ class PostUpdateTestCase(BasicAPITestCase):
         self.data = {
             'title': FuzzyText().fuzz(),
             'body': FuzzyText().fuzz(),
-            'category': CategoryFactory().title
+            'category': CategoryFactory().title,
         }
 
     def _request(self, id: UUID, data: dict, is_auth: bool = True):

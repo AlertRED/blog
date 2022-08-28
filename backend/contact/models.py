@@ -7,12 +7,12 @@ class Contact(BaseModel):
         max_length=32,
         null=False,
         unique=True,
-        verbose_name='Название ресурса'
+        verbose_name='Название ресурса',
     )
     contact_value = models.CharField(
         max_length=32,
         null=False,
-        verbose_name='Значение контакта'
+        verbose_name='Значение контакта',
     )
 
     def __str__(self) -> str:

@@ -18,7 +18,7 @@ class PostFilter(FilterSet):
     # )
 
     category = filters.CharFilter(
-        field_name='category__title__in', method='filter_by_category'
+        field_name='category__title__in', method='filter_by_category',
     )
 
     @staticmethod

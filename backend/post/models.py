@@ -12,7 +12,7 @@ class Category(BaseModel):
         max_length=32,
         null=False,
         unique=True,
-        verbose_name='Название категории'
+        verbose_name='Название категории',
     )
 
     def __str__(self) -> str:
