@@ -1,26 +1,39 @@
-name: Deploy
+name: Deployment
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-
-env:
-  DEPLOY_PATH: ~/project
-  BUILD_SCRIPT: npm run build
-  BUILD_SCRIPT_OUTPUT: dist
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to server
-      # don't run locally
-        if: ${{ !env.ACT }}
+      - name: Deployment to server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOY_SERVER_HOST }}
           port: ${{ secrets.DEPLOY_SERVER_PORT }}
           username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
-          key: ${{ secrets.DEPLOY_SERVER_KEY }}
+          password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
+          script: |
+            yum install git python3 python3-pip npm -y
+            git clone https://github.com/${{ github.repository }}
+            cd ${{ github.event.repository.name }}
+            git pull https://github.com/${{ github.repository }}
+            
+            # backend
+            source venv/bin/activate
+            cd backend
+            python3 manage.py migrate
+            python3 manage.py runserver
+            
+            #frontend
+            cd ../frontend
+            npm install
+            npm run dev
+            
+            
