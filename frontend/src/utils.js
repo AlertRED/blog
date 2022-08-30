@@ -19,3 +19,7 @@ export function is_auth() {
     };
     return false;
 }
+
+export function get_bearer() {
+    return is_auth() ? `Bearer ${get_token()}` : null
+}

@@ -25,7 +25,7 @@
     
 <script>
     import "./category.css";
-    import { get_token, is_auth } from '@/utils';
+    import { get_bearer, is_auth } from '@/utils';
 
     export default {
         data() {
@@ -45,7 +45,7 @@
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -62,7 +62,7 @@
                         method: "post",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -77,7 +77,7 @@
                     {
                         method: "delete",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -94,7 +94,7 @@
                         method: "put",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );

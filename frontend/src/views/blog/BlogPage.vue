@@ -70,7 +70,7 @@
 <script>
     import "./blog.css";
     import moment from "moment";
-    import { get_token } from '@/utils';
+    import { get_bearer } from '@/utils';
 
     export default {
         
@@ -141,7 +141,7 @@
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );

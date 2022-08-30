@@ -31,7 +31,7 @@
     import "mavon-editor/dist/css/index.css"
 
     import { mavonEditor } from 'mavon-editor';
-    import { get_token, is_auth } from '@/utils';
+    import { get_bearer, is_auth } from '@/utils';
 
     export default {
         data() {
@@ -55,7 +55,7 @@
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -70,7 +70,7 @@
                     {
                         method: "delete",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );

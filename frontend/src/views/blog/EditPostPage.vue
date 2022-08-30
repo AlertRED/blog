@@ -56,7 +56,7 @@
     import "mavon-editor/dist/css/index.css"
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
-    import { get_token } from '@/utils';
+    import { get_bearer } from '@/utils';
 
 
     export default {
@@ -89,7 +89,7 @@
                         method: "post",
                         body: formdata,
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -109,7 +109,7 @@
                         method: "post",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -132,7 +132,7 @@
                         method: "patch",
                         body: bodyContent,
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -145,7 +145,7 @@
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
@@ -161,7 +161,7 @@
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
                 );
