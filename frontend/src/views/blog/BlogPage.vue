@@ -164,8 +164,6 @@
         },
         beforeMount() {
             this.get_posts_by_page();
-            console.log(import.meta.env);
-            console.log(1);
         },
   };
 
