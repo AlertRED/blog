@@ -136,7 +136,7 @@
                     return
                 this.is_searching = true;
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
+                    `${import.meta.env.VITE_BASE_API_URL}/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
                     (this.$route.query.category ? `&category=${this.$route.query.category}` : ''), 
                     {
                         method: "get",
@@ -164,6 +164,8 @@
         },
         beforeMount() {
             this.get_posts_by_page();
+            console.log(import.meta.env);
+            console.log(1);
         },
   };
 

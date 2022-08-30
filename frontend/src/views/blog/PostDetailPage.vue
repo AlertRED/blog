@@ -51,7 +51,7 @@
             },
             async get_post() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "get",
                         headers: {
@@ -66,7 +66,7 @@
             },
             async delete_post() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "delete",
                         headers: {

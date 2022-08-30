@@ -33,7 +33,7 @@ export default {
                 bodyContent.append("password", this.input.password);
 
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/auth/login/`,
+                    `${import.meta.env.VITE_BASE_API_URL}/auth/login/`,
                     {
                         method: "post",
                         body: bodyContent,

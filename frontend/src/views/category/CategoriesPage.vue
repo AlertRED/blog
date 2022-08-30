@@ -41,9 +41,12 @@
             },
             async get_categories() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/categories`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/categories`, 
                     {
                         method: "get",
+                        headers: {
+                            Authorization: `Bearer ${get_token()}`,
+                        },
                     },
                 );
                 const content = await response.json();
@@ -54,7 +57,7 @@
                 bodyContent.append('title', this.new_category_tittle);
                         
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/categories/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/categories/`, 
                     {
                         method: "post",
                         body: bodyContent,
@@ -70,7 +73,7 @@
             },
             async delete_category(id) {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/category/${id}`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/category/${id}`, 
                     {
                         method: "delete",
                         headers: {
@@ -86,7 +89,7 @@
                 bodyContent.append('title', this.new_category_tittle);
 
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/category/${this.category_edit.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/category/${this.category_edit.id}/`, 
                     {
                         method: "put",
                         body: bodyContent,

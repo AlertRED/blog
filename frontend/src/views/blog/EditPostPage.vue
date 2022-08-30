@@ -84,7 +84,7 @@
                 var formdata = new FormData();
                 formdata.append('file', $file);
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post-files/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post-files/`, 
                     {
                         method: "post",
                         body: formdata,
@@ -104,7 +104,7 @@
                 bodyContent.append('is_draft', this.is_draft);
                 
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/posts/`, 
                     {
                         method: "post",
                         body: bodyContent,
@@ -127,7 +127,7 @@
                 bodyContent.append('is_draft', this.is_draft);
 
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "patch",
                         body: bodyContent,
@@ -141,7 +141,7 @@
             },
             async get_post(id){
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${id}/`, 
                     {
                         method: "get",
                         headers: {
@@ -157,7 +157,7 @@
             },
             async get_categories() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/categories`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/categories`, 
                     {
                         method: "get",
                         headers: {
