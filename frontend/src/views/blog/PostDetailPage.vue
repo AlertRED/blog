@@ -31,7 +31,7 @@
     import "mavon-editor/dist/css/index.css"
 
     import { mavonEditor } from 'mavon-editor';
-    import { get_token, is_auth } from '@/utils';
+    import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
 
     export default {
         data() {
@@ -51,32 +51,35 @@
             },
             async get_post() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
-                );
-                if (response.status == 200)
-                    this.post = await response.json();
+                ).then(response => parse_response(response));
+
+                if (response.status === 200)
+                    this.post = await response.body
                 else
-                    this.$router.push({name: 'NotFound  '});
+                    this.$router.push({name: 'NotFound'});
             },
             async delete_post() {
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "delete",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
-                );
-                const status = await response.status;
-                if (status == 204)
-                    this.$router.push({name: 'Blog'});
+                ).then(response => parse_response(response));
+
+                if (response.status === 204)
+                    this.$router.push({name: 'Blog'})
+                else
+                    throw_body(response.body)
             },
         },
         beforeMount() {

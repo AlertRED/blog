@@ -1,5 +1,6 @@
 :root{
-  --width-content: calc(60rem - (2rem * 2));
+  --width-content: 60rem;
+  --padding-content: 0rem 2rem 0rem 2rem;
 }
 
 :root, [theme="light"] {

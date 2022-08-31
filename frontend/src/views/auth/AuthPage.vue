@@ -14,6 +14,7 @@
 <script>
 
 import "./auth.css";
+import { parse_response, throw_body, get_bearer } from '@/utils';
 
 export default {
     data() {
@@ -28,26 +29,29 @@ export default {
         async login() {
             if (this.input.username != "" && this.input.password != "") {
 
-                let bodyContent = new FormData();
-                bodyContent.append("username", this.input.username);
-                bodyContent.append("password", this.input.password);
+                let fromBody = new FormData();
+                fromBody.append("username", this.input.username);
+                fromBody.append("password", this.input.password);
 
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/auth/login/`,
+                    `${import.meta.env.VITE_BASE_API_URL}/auth/login/`,
                     {
                         method: "post",
-                        body: bodyContent,
+                        body: fromBody,
+                        headers: {
+                            Authorization: get_bearer(),
+                        },
                     },
-                );
-                const content = await response.json();
-                if (response.status == 200) {
-                    const storage = localStorage;
-                    const expiredTime = Date.now() + content['lifetime'] * 1000;
-                    storage.setItem('lifetime', content['lifetime']);
-                    storage.setItem('expiredTime', expiredTime);
-                    storage.setItem('token', content['token']);
+                ).then(response => parse_response(response));
+
+                if (response.status === 200){
+                    const expiredTime = Date.now() + response.body.lifetime * 1000;
+                    localStorage.setItem('expiredTime', expiredTime);
+                    localStorage.setItem('lifetime', response.body.lifetime);
+                    localStorage.setItem('token', response.body.token);
                     this.$router.push({ name: 'Blog' });
-                }
+                } else
+                    throw_body(response.body)
             }
         },
     },

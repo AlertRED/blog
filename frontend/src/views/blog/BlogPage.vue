@@ -70,16 +70,14 @@
 <script>
     import "./blog.css";
     import moment from "moment";
-    import { get_token } from '@/utils';
+    import { parse_response, throw_body, get_bearer } from '@/utils';
 
     export default {
-        
         data() {
             return {
                 posts: [],
                 post_search: "",
                 is_searching: false,
-
                 limit: 8,
                 current_page: 1,
                 total_pages: null,
@@ -96,9 +94,9 @@
             pages() {
                 let pages = [];
                 let start = 0;
-                const max_show = 3
+                const max_show = 3;
 
-                let count_pages = max_show < this.total_pages ? max_show : this.total_pages
+                let count_pages = max_show < this.total_pages ? max_show : this.total_pages;
 
                 if (this.current_page == 1)
                     start = this.current_page
@@ -136,19 +134,23 @@
                     return
                 this.is_searching = true;
                 const response = await fetch(
-                    `http://127.0.0.1:8000/api/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
+                    `${import.meta.env.VITE_BASE_API_URL}/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
                     (this.$route.query.category ? `&category=${this.$route.query.category}` : ''), 
                     {
                         method: "get",
                         headers: {
-                            Authorization: `Bearer ${get_token()}`,
+                            Authorization: get_bearer(),
                         },
                     },
-                );
-                const content = await response.json();
-                this.posts = content['results'];
-                this.total_pages = Math.ceil(content['count'] / this.limit);
-                this.is_searching = false;
+                ).then(response => parse_response(response));
+
+                if (response.status === 200){
+                    this.posts = response.body.results;
+                    this.total_pages = Math.ceil(response.body.count / this.limit);
+                    this.is_searching = false;
+                } else
+                    throw_body(response.body)
+                
             },
             remove_category_from_filter(category) {
                 const query_categories = this.filter_categories.slice();

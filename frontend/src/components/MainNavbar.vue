@@ -1,16 +1,17 @@
 <template>
     <header>
-        <ul id="menu">
-            <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
-            <li><router-link :class="`brightness-hover`" :to="{ name:'Blog'}">Blog</router-link></li>
-            <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
-            <li><a :class="`brightness-hover`" href="#">CV</a></li>
-        </ul>
-        <div 
-            id="change-theme"
-            :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }"
-            @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light') }"
-        >
+        <div id="toolbar">
+            <ul id="menu">
+                <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
+                <li><router-link :class="`brightness-hover`" :to="{ name:'Blog'}">Blog</router-link></li>
+                <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
+                <li><a :class="`brightness-hover`" href="#">CV</a></li>
+            </ul>
+            <div 
+                id="change-theme"
+                :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }"
+                @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light') }"
+            ></div>
         </div>
     </header>
 </template>
