@@ -56,7 +56,7 @@
     import "mavon-editor/dist/css/index.css"
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
-    import { get_bearer } from '@/utils';
+    import { parse_response, throw_body, get_bearer } from '@/utils';
 
 
     export default {
@@ -92,52 +92,58 @@
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                const content = await response.json();
-                this.$refs.me.$img2Url(pos, 'http://127.0.0.1:8000' + content.url);
+                ).then(response => parse_response(response));
+
+                if (response.status === 201) // TODO http://127.0.0.1:8000 исправить
+                    this.$refs.me.$img2Url(pos, 'http://127.0.0.1:8000' + response.body.url);
+                else
+                    throw_body(response.body)
             },
             async create_post(){
-                let bodyContent = new FormData();
-                bodyContent.append('title', this.title);
-                bodyContent.append('body', this.body);
-                bodyContent.append('category', this.category);
-                bodyContent.append('is_draft', this.is_draft);
+                let fromBody = new FormData();
+                fromBody.append('title', this.title);
+                fromBody.append('body', this.body);
+                fromBody.append('category', this.category);
+                fromBody.append('is_draft', this.is_draft);
                 
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/posts/`, 
                     {
                         method: "post",
-                        body: bodyContent,
+                        body: fromBody,
                         headers: {
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                const content = await response.json();
-                if (await response.status == 201){
-                    const post_id = content['id'];
-                    this.$router.push({name:'PostDetail', params: { id: post_id }});
-                }
+                ).then(response => parse_response(response));
+
+                if (response.status === 201)
+                    this.$router.push({name:'PostDetail', params: { id: response.body.id }});
+                else
+                    throw_body(response.body)
             },
             async save_post(){
-                let bodyContent = new FormData();
-                bodyContent.append('title', this.title);
-                bodyContent.append('body', this.body);
-                bodyContent.append('category', this.category);
-                bodyContent.append('is_draft', this.is_draft);
+                let fromBody = new FormData();
+                fromBody.append('title', this.title);
+                fromBody.append('body', this.body);
+                fromBody.append('category', this.category);
+                fromBody.append('is_draft', this.is_draft);
 
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
                         method: "patch",
-                        body: bodyContent,
+                        body: fromBody,
                         headers: {
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                if (await response.status == 200)
+                ).then(response => parse_response(response));
+
+                if (response.status === 200)
                     this.$router.push({name:'PostDetail', params: { id: this.$route.params.id }});
+                else
+                    throw_body(response.body)
             },
             async get_post(id){
                 const response = await fetch(
@@ -148,12 +154,16 @@
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                const post = await response.json();
-                this.title = post.title;
-                this.body = post.body;
-                this.is_draft = post.is_draft;
-                this.category = post.category;
+                ).then(response => parse_response(response));
+
+                if (response.status === 200){
+                    const post = response.body;
+                    this.title = post.title;
+                    this.body = post.body;
+                    this.is_draft = post.is_draft;
+                    this.category = post.category;
+                } else
+                    throw_body(response.body)
             },
             async get_categories() {
                 const response = await fetch(
@@ -164,9 +174,12 @@
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                const content = await response.json();
-                this.categories = content['results'];
+                ).then(response => parse_response(response));
+
+                if (response.status === 200)
+                    this.categories = response.body.results
+                else
+                    throw_body(response.body)
             },
         },
         beforeMount() {

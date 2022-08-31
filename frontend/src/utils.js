@@ -23,3 +23,18 @@ export function is_auth() {
 export function get_bearer() {
     return is_auth() ? `Bearer ${get_token()}` : null
 }
+
+export function throw_body(body) {
+    for (const [key, value] of Object.entries(body)) {
+        value.forEach(function (item, index) {
+            console.log(`${key} - ${item}`);
+        });
+    }
+}
+
+export async function parse_response(response) {
+    return {
+        status: response.status,
+        body: await response.json().catch(_ => {})
+    };
+}

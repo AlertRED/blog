@@ -70,10 +70,9 @@
 <script>
     import "./blog.css";
     import moment from "moment";
-    import { get_bearer } from '@/utils';
+    import { parse_response, throw_body, get_bearer } from '@/utils';
 
     export default {
-        
         data() {
             return {
                 posts: [],
@@ -144,11 +143,15 @@
                             Authorization: get_bearer(),
                         },
                     },
-                );
-                const content = await response.json();
-                this.posts = content['results'];
-                this.total_pages = Math.ceil(content['count'] / this.limit);
-                this.is_searching = false;
+                ).then(response => parse_response(response));
+
+                if (response.status === 200){
+                    this.posts = response.body.results;
+                    this.total_pages = Math.ceil(content['count'] / this.limit);
+                    this.is_searching = false;
+                } else
+                    throw_body(response.body)
+                
             },
             remove_category_from_filter(category) {
                 const query_categories = this.filter_categories.slice();
