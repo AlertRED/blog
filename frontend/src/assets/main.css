@@ -81,8 +81,9 @@ body {
 }
 
 hr {
-  height: 3px;
-  color: var(--color-simple);
+  height: 1px;
+  background: var(--color-simple);
+  border: none;
 }
 
 input:focus-visible {
@@ -93,9 +94,19 @@ input {
   background: var(--color-background);
 }
 
+button, input {
+  padding: 0.4rem;
+}
+
 input::placeholder {
  color: var(--color-unnoticeble);
  font-size: 0.8rem;
+}
+
+a.button {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 #menu {

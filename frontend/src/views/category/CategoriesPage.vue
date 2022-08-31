@@ -6,7 +6,7 @@
         </template>
         <template v-else>
             <input  v-model="new_category_tittle" placeholder="Create category"/>
-            <a href="#" v-on:click="create_category">Create</a>
+            <a href="#" v-on:click="create_category" class="button">Create</a>
         </template>
     </form>
     
