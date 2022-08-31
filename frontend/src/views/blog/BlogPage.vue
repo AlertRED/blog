@@ -78,7 +78,6 @@
                 posts: [],
                 post_search: "",
                 is_searching: false,
-
                 limit: 8,
                 current_page: 1,
                 total_pages: null,
@@ -95,9 +94,9 @@
             pages() {
                 let pages = [];
                 let start = 0;
-                const max_show = 3
+                const max_show = 3;
 
-                let count_pages = max_show < this.total_pages ? max_show : this.total_pages
+                let count_pages = max_show < this.total_pages ? max_show : this.total_pages;
 
                 if (this.current_page == 1)
                     start = this.current_page
@@ -147,7 +146,7 @@
 
                 if (response.status === 200){
                     this.posts = response.body.results;
-                    this.total_pages = Math.ceil(content['count'] / this.limit);
+                    this.total_pages = Math.ceil(response.body.count / this.limit);
                     this.is_searching = false;
                 } else
                     throw_body(response.body)

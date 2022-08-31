@@ -27,10 +27,20 @@ header {
   justify-content: center;
   margin-bottom: 1rem;
   margin: 0 auto;
-  max-width: var(--width-content);
+  width: 100%;
   padding: var(--padding-content);
   padding-top: 3rem;
   padding-bottom: 4rem;
+}
+
+#toolbar {
+  width: var(--width-content);
+  display: inline-flex;
+  padding: var(--padding-content);
+}
+
+h3 {
+  font-size: 1.4rem;
 }
 
 a {
@@ -85,6 +95,7 @@ input {
 
 input::placeholder {
  color: var(--color-unnoticeble);
+ font-size: 0.8rem;
 }
 
 #menu {
@@ -92,6 +103,8 @@ input::placeholder {
   font-size: 1.1rem;
   padding-left: 0rem;
   margin: 0;
+  width: 100%;
+  text-align: center;
 }
 
 #menu > li {
@@ -111,6 +124,7 @@ input::placeholder {
   position: relative;
   margin: 0 auto;
   min-height: 80vh;
+  margin-bottom: 4rem;
 }
 
 #admin-menu {
