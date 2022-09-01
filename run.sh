@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yum update
-yum install -y python3 python3-pip
+yum install -y python3 python3-pip npm
 iptables -I INPUT -p tcp --dport 8000 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -I INPUT -p tcp --dport 4173 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 python3 -m venv venv
@@ -17,4 +17,4 @@ npm install
 npm run build
 nohup $(npm run preview -- --host 0.0.0.0) &
 
-return
+exit
