@@ -20,20 +20,6 @@ jobs:
           username: ${{ secrets.DEPLOY_SERVER_USERNAME }}
           password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
           script: |
-            yum install git python3 python3-pip npm -y
-            git clone https://github.com/${{ github.repository }}
-            cd ${{ github.event.repository.name }}
-            git pull https://github.com/${{ github.repository }}
-            
-            # backend
-            source venv/bin/activate
-            cd backend
-            python3 manage.py migrate
-            python3 manage.py runserver
-            
-            #frontend
-            cd ../frontend
-            npm install
-            npm run dev
+            bash ./run.sh
             
             
