@@ -23,6 +23,4 @@ jobs:
             git clone https://github.com/${{ github.repository }}	
             cd ${{ github.event.repository.name }}	
             git pull https://github.com/${{ github.repository }}	
-            bash ./run.sh
-            
-            
+            bash -x ./run.sh
