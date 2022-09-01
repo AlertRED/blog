@@ -1,5 +1,4 @@
 #!/bin/bash
-
 yum update
 yum install -y python3 python3-pip npm
 iptables -I INPUT -p tcp --dport 8000 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
