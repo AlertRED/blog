@@ -21,8 +21,7 @@ jobs:
           password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
           script: |
             git clone https://github.com/${{ github.repository }}	
-            cd ${{ github.event.repository.name }}	
-            git pull https://github.com/${{ github.repository }}	
-            bash ./run.sh
-            
-            
+            cd ${{ github.event.repository.name }}
+            git reset --hard HEAD
+            git pull
+            bash -x ./run.sh
