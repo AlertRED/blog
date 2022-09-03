@@ -14,3 +14,4 @@ gunicorn blog.asgi:application -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.
 cd ../frontend
 npm install
 npm run build
+nohup npm run preview -- --host 0.0.0.0 &
