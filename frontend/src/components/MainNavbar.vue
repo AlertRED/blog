@@ -9,9 +9,11 @@
             </ul>
             <div 
                 id="change-theme"
-                :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }"
                 @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light') }"
-            ></div>
+            >
+                <div :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }">
+                </div>
+            </div>
         </div>
     </header>
 </template>
