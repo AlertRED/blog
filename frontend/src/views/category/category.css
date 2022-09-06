@@ -35,6 +35,7 @@
   flex-wrap: wrap;
   display: inline-flex;
   justify-content: center;
+  padding: 0;
 }
 
 #categories > li {
@@ -69,14 +70,15 @@
   opacity: 1;
 }
 
-#categories > li::before {
+/* #categories > li::before {
   content: "■";
   color: var(--color-feature);
   font-size: 0.4rem;
   top: -15%;
   margin-right: 0.2rem;
-}
+} */
 
-#categories > li:not(:last-child) {
-  margin-right: 2rem;
+#categories > li {
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
