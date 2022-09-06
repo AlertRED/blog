@@ -227,6 +227,7 @@ input {
 
   #menu > li > a {
     width: -webkit-fill-available;
+    width: -moz-available;
   }
 
   #menu > li:not(:last-child)::after {
