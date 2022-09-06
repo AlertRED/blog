@@ -22,6 +22,6 @@ jobs:
           script: |
             git clone https://github.com/${{ github.repository }}	
             cd ${{ github.event.repository.name }}
-            git fetch origin main
+            git fetch origin main --prune
             git reset --hard origin/main
             bash -x ./run.sh
