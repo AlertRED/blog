@@ -1,6 +1,6 @@
 #!/bin/bash
 yum update -y
-yum install -y python3 python3-pip npm lsof
+yum install -y python3 python3-pip npm lsof nginx
 iptables -I INPUT -p tcp --dport 8000 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -I INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 # iptables -t nat -A OUTPUT -o lo -p tcp --dport 80 -j REDIRECT --to-port 8080
@@ -18,4 +18,6 @@ gunicorn blog.asgi:application -w 2 -k uvicorn.workers.UvicornWorker --bind 0.0.
 cd ../frontend
 npm install
 npm run build
-nohup npm run preview -- --host 0.0.0.0 > nohup.out 2> nohup.err < /dev/null &
+nohup npm run preview -- --host 0.0.0.0 --port 5173 > nohup.out 2> nohup.err < /dev/null &
+
+systemctl restart nginx
