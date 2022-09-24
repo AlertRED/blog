@@ -94,8 +94,8 @@
                     },
                 ).then(response => parse_response(response));
 
-                if (response.status === 201) // TODO http://127.0.0.1:8000 исправить
-                    this.$refs.me.$img2Url(pos, 'http://127.0.0.1:8000' + response.body.url);
+                if (response.status === 201)
+                    this.$refs.me.$img2Url(pos, import.meta.env.VITE_BASE_API_URL + response.body.url);
                 else
                     throw_body(response.body)
             },
