@@ -147,6 +147,8 @@ a.button {
   color: var(--color-simple);
   border: 1px solid var(--color-simple);
   padding: 0.2rem;
+  z-index: 2;
+  background: var(--color-background);
 }
 
 #admin-menu > ul {
