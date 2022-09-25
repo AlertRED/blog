@@ -15,13 +15,11 @@
                     <span class="icon-bin"></span>
                 </a>
             </div>
-        <ul id="post-categories">
-            <li v-for="category in post?.categories" :key="index">
-                <router-link :to="{ name:'Blog', params: { category: category }}">
-                    {{ category }}
-                </router-link>
-            </li>
-        </ul>
+        <div id="post-categories">
+            <router-link :to="{ name:'Blog', params: { category: post?.category }}">
+                {{ post?.category }}
+            </router-link>
+        </div>
         <div class="markdown-body" v-html="markdown_body"></div>
     </div>
 </template>
