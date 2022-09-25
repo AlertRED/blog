@@ -16,18 +16,18 @@
             </a>
         </div>
         <div id="post-categories">
-            <router-link :to="{ name:'Blog', query: { category: post.category }}">
+            <router-link :to="{ name:'Blog', query: { category: post?.category }}">
                 {{ post?.category }}
             </router-link>
         </div>
-        <div class="markdown-body" v-html="markdown_body"></div>
+        <div :class="`markdown-body`" v-html="markdown_body"></div>
     </div>
 </template>
     
 <script>
     import "./blog.css";
     import "mavon-editor/dist/css/index.css"
-
+    import "mavon-editor/dist/markdown/github-markdown.min.css"
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
 
@@ -35,7 +35,7 @@
         data() {
             return {
                 post: null,
-            }
+            } 
         },
         computed: {
             markdown_body() {
