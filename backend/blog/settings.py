@@ -142,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TOKEN_LIFETIME = 3600
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
+# CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
 # CORS_ALLOWED_ORIGINS = [
 #     "http://127.0.0.1:8000/",
 # ]
