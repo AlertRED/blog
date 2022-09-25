@@ -1,22 +1,22 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post?.title }}</div>
-            <div v-if="is_auth()" class="post-tools">
-                <router-link
-                    :to="{ name:'EditPost', params: {id: this.$route.params.id}}"
-                    class="brightness-hover"
-                >
-                    <span class="icon-pencil"></span>
-                </router-link>
-                <a 
-                    class="brightness-hover"
-                    @click="delete_post"
-                >
-                    <span class="icon-bin"></span>
-                </a>
-            </div>
+        <div v-if="is_auth()" class="post-tools">
+            <router-link
+                :to="{ name:'EditPost', params: {id: this.$route.params.id}}"
+                class="brightness-hover"
+            >
+                <span class="icon-pencil"></span>
+            </router-link>
+            <a 
+                class="brightness-hover"
+                @click="delete_post"
+            >
+                <span class="icon-bin"></span>
+            </a>
+        </div>
         <div id="post-categories">
-            <router-link :to="{ name:'Blog', params: { category: post?.category }}">
+            <router-link :to="{ name:'Blog', query: { category: post.category }}">
                 {{ post?.category }}
             </router-link>
         </div>
