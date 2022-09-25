@@ -20,6 +20,7 @@
     background-color:  var(--color-background);
     border: 1px solid var(--color-feature);
     color: var(--color-feature);
+    cursor: pointer;
   }
   
   #login > button:hover {
