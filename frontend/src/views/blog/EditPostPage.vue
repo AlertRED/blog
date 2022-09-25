@@ -132,7 +132,7 @@
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
                     {
-                        method: "patch",
+                        method: "put",
                         body: fromBody,
                         headers: {
                             Authorization: get_bearer(),
