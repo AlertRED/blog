@@ -16,7 +16,10 @@
             </a>
         </div>
         <div id="post-categories">
-            <router-link :to="{ name:'Blog', query: { category: post?.category }}">
+            <router-link 
+                :class="`brightness-hover`" 
+                :to="{ name:'Blog', query: { category: post?.category }}"
+            >
                 {{ post?.category }}
             </router-link>
         </div>
