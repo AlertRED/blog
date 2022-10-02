@@ -1,0 +1,35 @@
+.auto-textarea-wrapper .auto-textarea-input {
+  color: var(--color-text) !important;
+}
+
+.markdown-body {
+  color: var(--color-text) !important;
+}
+
+.markdown-body table tr {
+  background-color: var(--color-background) !important;
+}
+
+.v-note-wrapper .v-note-op .v-left-item .op-icon.selected, .v-note-wrapper .v-note-op .v-right-item .op-icon.selected{
+  color: #757575;
+}
+
+.v-note-wrapper .v-note-op .v-left-item .op-icon-divider, .v-note-wrapper .v-note-op .v-right-item .op-icon-divider {
+  border-left-color: #757575;
+}
+
+.hljs, .markdown-body .highlight pre, .markdown-body pre {
+  color: var(--color-background) !important;
+}
+
+.hljs, .markdown-body .highlight pre, .markdown-body pre {
+  background-color: var(--color-text) !important;
+}
+
+div.markdown-body {
+  z-index: 1;
+}
+
+div.fullscreen {
+  z-index: 11;
+}

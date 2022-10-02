@@ -53,14 +53,14 @@
 
 <script>
     import "./blog.css";
-    import "mavon-editor/dist/css/index.css"
+    import "mavon-editor/dist/css/index.css";
+    import "../../assets/markdown-add-on.css";
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer } from '@/utils';
 
 
     export default {
-        
         data() {
             return {
                 title: null,

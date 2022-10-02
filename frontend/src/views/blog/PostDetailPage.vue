@@ -1,20 +1,6 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post?.title }}</div>
-        <div v-if="is_auth()" class="post-tools">
-            <router-link
-                :to="{ name:'EditPost', params: {id: this.$route.params.id}}"
-                class="brightness-hover"
-            >
-                <span class="icon-pencil"></span>
-            </router-link>
-            <a 
-                class="brightness-hover"
-                @click="delete_post"
-            >
-                <span class="icon-bin"></span>
-            </a>
-        </div>
         <div id="post-categories">
             <router-link 
                 :class="`brightness-hover`" 
@@ -29,8 +15,8 @@
     
 <script>
     import "./blog.css";
-    import "mavon-editor/dist/css/index.css"
-    import "mavon-editor/dist/markdown/github-markdown.min.css"
+    import "mavon-editor/dist/css/index.css";
+    import "../../assets/markdown-add-on.css";
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
 
@@ -85,6 +71,7 @@
         },
         beforeMount() {
             this.get_post();
+            this.$emit('loadDeletePost', this.delete_post);
         },
   };
 </script>

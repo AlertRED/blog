@@ -1,33 +1,31 @@
 <template>
   <main-navbar/>
   <div id="content">
-    <router-view/>
+    <router-view @loadDeletePost="loadDeletePost"/>
   </div>
-  <div v-if="is_auth()" id="admin-menu">
-    <ul>
-      <li><router-link :to="{ name:'CreatePost'}">Create post</router-link></li>      
-    </ul>
-    <hr/>
-    menu
-  </div>
+  <admin-menu :delete_post="delete_post"/> 
 </template>
 
 <script>
   import MainNavbar from './components/MainNavbar.vue';
-  import { is_auth } from '@/utils';
+  import AdminMenu from './components/AdminMenu.vue';
 
   export default {
     name: "App",
     components: {
       MainNavbar,
+      AdminMenu,
+    },
+    data() {
+      return {
+        delete_post: null,
+      }
     },
     methods: {
-      is_auth(){
-          return is_auth();
-      },
-    },
-  };
+      loadDeletePost(delete_post) {
+          this.delete_post = delete_post;
+      }
+    }
+    
+  }
 </script>
-
-<style>
-</style>
