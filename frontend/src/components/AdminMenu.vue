@@ -1,5 +1,5 @@
-<template v-if="is_auth()">
-    <div id="admin-menu" @clicked="onClickChild">
+<template>
+    <div v-if="is_auth()" id="admin-menu" @clicked="onClickChild">
         <ul>
         <li><router-link :to="{ name:'CreatePost'}">Create post</router-link></li>
         <template v-if="$route.matched.some(({ name }) => name === 'PostDetail')">
