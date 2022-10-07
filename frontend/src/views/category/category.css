@@ -17,6 +17,15 @@
   margin-right: 1rem;
 }
 
+
+#edit-category > input::-moz-placeholder {
+  color: var(--color-simple);
+}
+
+#edit-category > input::-webkit-input-placeholder {
+  color: var(--color-simple);
+}
+
 #edit-category > a {
   outline: none;
   border: 1px solid var(--color-feature);
