@@ -197,14 +197,14 @@
     }
 
     .v-note-wrapper {
-        border: none;
+        border: none !important;
     }
 
-    .v-note-wrapper .v-note-op {
+    .v-note-op {
         border-bottom: 1px solid var(--color-background) !important;
     }
 
     .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar{
-        background-color: var(--color-unnoticeble);
+        background-color: var(--color-unnoticeble) !important;
     }
 </style>
