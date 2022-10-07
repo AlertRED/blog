@@ -33,3 +33,8 @@ div.markdown-body {
 div.fullscreen {
   z-index: 11;
 }
+
+.markdown-body pre {
+  padding: 0.8rem;
+  border-radius: 5px;
+}
