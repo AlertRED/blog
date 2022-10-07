@@ -5,7 +5,7 @@
                 <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Blog'}">Blog</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
-                <li><a :class="`brightness-hover`" :href="'./CV.pdf'" target="_blank">CV <sup>(pdf)</sup></a></li>
+                <li><a :class="`brightness-hover`" :href="cvpdf" target="_blank">CV <sup>(pdf)</sup></a></li>
             </ul>
             <div
                 id="change-theme"
@@ -19,10 +19,14 @@
 </template>
 
 <script>
+import cvpdf from '../assets/CV.pdf'
+
+
 export default { 
     data() {
         return {
             theme_name: localStorage['theme'] || "light",
+            cvpdf: cvpdf,
         }
     },
     mounted() {
