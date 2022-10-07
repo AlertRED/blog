@@ -26,6 +26,5 @@
           this.delete_post = delete_post;
       }
     }
-    
   }
 </script>

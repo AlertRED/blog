@@ -1,12 +1,12 @@
 <template>
     <div id="post-detail">
         <div id="post-title">{{ post?.title }}</div>
-        <div id="post-categories">
+        <div id="post-category">
             <router-link 
                 :class="`brightness-hover`" 
                 :to="{ name:'Blog', query: { category: post?.category }}"
             >
-                {{ post?.category }}
+                ~ {{ post?.category }} ~
             </router-link>
         </div>
         <div :class="`markdown-body`" v-html="markdown_body"></div>

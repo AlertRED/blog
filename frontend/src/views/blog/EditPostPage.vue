@@ -204,7 +204,7 @@
         border-bottom: 1px solid var(--color-background) !important;
     }
 
-    .v-note-wrapper .v-note-op .v-left-item .op-icon.selected, .v-note-wrapper .v-note-op .v-right-item .op-icon.selected {
-        background: var(--color-background) !important;
+    .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.scroll-style::-webkit-scrollbar{
+        background-color: var(--color-unnoticeble);
     }
 </style>

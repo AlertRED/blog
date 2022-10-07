@@ -59,7 +59,7 @@
   margin: 0 auto;
 }
 
-#post-detail > #post-categories {
+#post-detail > #post-category {
   color: var(--color-feature);
   list-style-type: none;
 
@@ -298,6 +298,17 @@ div.post-tools > a:not(:last-child) {
   border-bottom: 1px solid var(--color-feature);
   box-shadow: none;
   min-width: 5rem;
+  color: var(--color-simple);
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+#post-search > input::-moz-placeholder, input::-webkit-input-placeholder {
+  color: var(--color-simple);
+}
+
+#post-search > input::-webkit-input-placeholder {
+  color: var(--color-simple);
 }
 
 #post-search > input:disabled {
