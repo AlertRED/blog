@@ -38,3 +38,12 @@ div.fullscreen {
   padding: 0.8rem;
   border-radius: 5px;
 }
+
+.markdown-body code {
+  font-family: 'PT-Root-UI_Regular' !important;
+  font-size: 0.9rem !important;
+}
+
+.markdown-body {
+  font-size: 1rem !important;
+}
