@@ -59,7 +59,7 @@
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/categories/`, 
                     {
-                        method: "note",
+                        method: "post",
                         body: fromBody,
                         headers: {
                             Authorization: get_bearer(),

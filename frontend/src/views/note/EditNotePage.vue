@@ -86,7 +86,7 @@
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/note-files/`, 
                     {
-                        method: "note",
+                        method: "post",
                         body: formdata,
                         headers: {
                             Authorization: get_bearer(),
@@ -109,7 +109,7 @@
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/notes/`, 
                     {
-                        method: "note",
+                        method: "post",
                         body: fromBody,
                         headers: {
                             Authorization: get_bearer(),
