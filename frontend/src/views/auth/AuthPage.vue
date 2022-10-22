@@ -49,7 +49,7 @@ export default {
                     localStorage.setItem('expiredTime', expiredTime);
                     localStorage.setItem('lifetime', response.body.lifetime);
                     localStorage.setItem('token', response.body.token);
-                    this.$router.push({ name: 'Blog' });
+                    this.$router.push({ name: 'Notes' });
                 } else
                     throw_body(response.body)
             }

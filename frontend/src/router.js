@@ -16,9 +16,9 @@ const routes = [
     alias: '/',
   },
   { 
-    path: '/blog',
-    name: 'Blog',
-    component: () => import('./views/blog/BlogPage.vue'),
+    path: '/notes',
+    name: 'Notes',
+    component: () => import('./views/notes/NotePage.vue'),
   },
   { 
     path: '/create-post',

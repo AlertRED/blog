@@ -3,7 +3,7 @@
         <div id="toolbar">
             <ul id="menu">
                 <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
-                <li><router-link :class="`brightness-hover`" :to="{ name:'Blog'}">Blog</router-link></li>
+                <li><router-link :class="`brightness-hover`" :to="{ name:'Notes'}">Notes</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
                 <li><a :class="`brightness-hover`" :href="cvpdf" target="_blank">CV <sup>(pdf)</sup></a></li>
             </ul>

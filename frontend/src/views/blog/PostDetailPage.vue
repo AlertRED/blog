@@ -4,7 +4,7 @@
         <div id="post-category">
             <router-link 
                 :class="`brightness-hover`" 
-                :to="{ name:'Blog', query: { category: post?.category }}"
+                :to="{ name:'Notes', query: { category: post?.category }}"
             >
                 ~ {{ post?.category }} ~
             </router-link>
@@ -64,7 +64,7 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 204)
-                    this.$router.push({name: 'Blog'})
+                    this.$router.push({name: 'Notes'})
                 else
                     throw_body(response.body)
             },

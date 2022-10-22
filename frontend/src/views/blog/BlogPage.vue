@@ -35,7 +35,7 @@
 
                 <div 
                     :class="`category brightness-hover`"
-                    v-on:click="this.$router.push({name: 'Blog', query: { category: add_to_categories(post.category) }})"
+                    v-on:click="this.$router.push({name: 'Notes', query: { category: add_to_categories(post.category) }})"
                 >
                     {{ post.category }}
                 </div>
@@ -155,7 +155,7 @@
             remove_category_from_filter(category) {
                 const query_categories = this.filter_categories.slice();
                 query_categories.splice(this.filter_categories.indexOf(category), 1);
-                this.$router.replace({name: 'Blog', query: {category: query_categories}});
+                this.$router.replace({name: 'Notes', query: {category: query_categories}});
             },
             add_to_categories(category) {
                 const query_categories = this.filter_categories;
