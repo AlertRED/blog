@@ -1,9 +1,9 @@
 <template>
   <main-navbar/>
   <div id="content">
-    <router-view @loadDeletePost="loadDeletePost"/>
+    <router-view @loadDeleteNote="loadDeleteNote"/>
   </div>
-  <admin-menu :delete_post="delete_post"/> 
+  <admin-menu :delete_note="delete_note"/> 
 </template>
 
 <script>
@@ -18,12 +18,12 @@
     },
     data() {
       return {
-        delete_post: null,
+        delete_note: null,
       }
     },
     methods: {
-      loadDeletePost(delete_post) {
-          this.delete_post = delete_post;
+      loadDeleteNote(delete_note) {
+          this.delete_note = delete_note;
       }
     }
   }

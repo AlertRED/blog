@@ -1,12 +1,12 @@
 <template>
     <form 
-        id="post-search"
+        id="note-search"
         v-on:submit.prevent="onSubmit"
     >
         <input 
-            v-on:keyup="search_posts"
+            v-on:keyup="search_notes"
             :disabled="is_searching"
-            v-model="post_search"
+            v-model="note_search"
             type="text"
             placeholder="Search"
         >
@@ -23,21 +23,21 @@
 
     
 
-    <ul id="posts">
-        <template v-for="post in posts">
-            <li class="post">
-                <div class="post-title">
-                    <router-link :class="`brightness-hover`" :to="{ name:'PostDetail', params: { id: post.id }}">{{ post.title }}</router-link>
+    <ul id="notes">
+        <template v-for="note in notes">
+            <li class="note">
+                <div class="note-title">
+                    <router-link :class="`brightness-hover`" :to="{ name:'NoteDetail', params: { id: note.id }}">{{ note.title }}</router-link>
                 </div>
                 <div class="separator"></div>
-                <div :class="`post-date`" :data-date="moment(post.created)"></div>
-                <div v-if="post.is_draft" :class="`post-draft icon-low-vision`" data-tooltip="draft"></div>
+                <div :class="`note-date`" :data-date="moment(note.created)"></div>
+                <div v-if="note.is_draft" :class="`note-draft icon-low-vision`" data-tooltip="draft"></div>
 
                 <div 
                     :class="`category brightness-hover`"
-                    v-on:click="this.$router.push({name: 'Notes', query: { category: add_to_categories(post.category) }})"
+                    v-on:click="this.$router.push({name: 'Notes', query: { category: add_to_categories(note.category) }})"
                 >
-                    {{ post.category }}
+                    {{ note.category }}
                 </div>
             </li>
         </template>
@@ -68,15 +68,15 @@
 </template>
     
 <script>
-    import "./blog.css";
+    import "./note.css";
     import moment from "moment";
     import { parse_response, throw_body, get_bearer } from '@/utils';
 
     export default {
         data() {
             return {
-                posts: [],
-                post_search: "",
+                notes: [],
+                note_search: "",
                 is_searching: false,
                 limit: 8,
                 current_page: 1,
@@ -84,10 +84,10 @@
             }
         },
         watch: {
-            'current_page': 'get_posts_by_page',
+            'current_page': 'get_notes_by_page',
             '$route.query': function() { 
                 this.current_page = 1; 
-                this.get_posts_by_page();
+                this.get_notes_by_page();
             },
         },
         computed: {
@@ -123,18 +123,18 @@
             moment(date) {
                 return moment(date, 'DD-MM-YYYY').format('DD.MM.YYYY');
             },
-            search_posts(event) {
+            search_notes(event) {
                 clearTimeout(this.timer)
                 this.timer = setTimeout(() => {
-                    this.get_posts_by_page(1);
+                    this.get_notes_by_page(1);
                 }, 800)
             },
-            async get_posts_by_page() {
+            async get_notes_by_page() {
                 if ((this.current_page < 1 || this.current_page > this.total_pages) && this.total_pages)
                     return
                 this.is_searching = true;
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/posts/?search=${this.post_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
+                    `${import.meta.env.VITE_BASE_API_URL}/notes/?search=${this.note_search}&limit=${this.limit}&offset=${(this.current_page - 1) * this.limit}` +
                     (this.$route.query.category ? `&category=${this.$route.query.category}` : ''), 
                     {
                         method: "get",
@@ -145,7 +145,7 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 200){
-                    this.posts = response.body.results;
+                    this.notes = response.body.results;
                     this.total_pages = Math.ceil(response.body.count / this.limit);
                     this.is_searching = false;
                 } else
@@ -165,7 +165,7 @@
             }
         },
         beforeMount() {
-            this.get_posts_by_page();
+            this.get_notes_by_page();
         },
   };
 

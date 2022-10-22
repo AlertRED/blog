@@ -36,7 +36,7 @@ export default {
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/auth/login/`,
                     {
-                        method: "post",
+                        method: "note",
                         body: fromBody,
                         headers: {
                             Authorization: get_bearer(),

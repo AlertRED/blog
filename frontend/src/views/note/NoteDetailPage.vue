@@ -1,12 +1,12 @@
 <template>
-    <div id="post-detail">
-        <div id="post-title">{{ post?.title }}</div>
-        <div id="post-category">
+    <div id="note-detail">
+        <div id="note-title">{{ note?.title }}</div>
+        <div id="note-category">
             <router-link 
                 :class="`brightness-hover`" 
-                :to="{ name:'Notes', query: { category: post?.category }}"
+                :to="{ name:'Notes', query: { category: note?.category }}"
             >
-                ~ {{ post?.category }} ~
+                ~ {{ note?.category }} ~
             </router-link>
         </div>
         <div :class="`markdown-body`" v-html="markdown_body"></div>
@@ -14,7 +14,7 @@
 </template>
     
 <script>
-    import "./blog.css";
+    import "./note.css";
     import "mavon-editor/dist/css/index.css";
     import "../../assets/markdown-add-on.css";
     import { mavonEditor } from 'mavon-editor';
@@ -23,22 +23,22 @@
     export default {
         data() {
             return {
-                post: null,
+                note: null,
             } 
         },
         computed: {
             markdown_body() {
                 const markdownIt = mavonEditor.getMarkdownIt();
-                return markdownIt.render(this.post?.body || '');
+                return markdownIt.render(this.note?.body || '');
             }
         },
         methods: {
             is_auth(){
                 return is_auth();
             },
-            async get_post() {
+            async get_note() {
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/note/${this.$route.params.id}/`, 
                     {
                         method: "get",
                         headers: {
@@ -48,13 +48,13 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 200)
-                    this.post = await response.body
+                    this.note = await response.body
                 else
                     this.$router.push({name: 'NotFound'});
             },
-            async delete_post() {
+            async delete_note() {
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/note/${this.$route.params.id}/`, 
                     {
                         method: "delete",
                         headers: {
@@ -70,8 +70,8 @@
             },
         },
         beforeMount() {
-            this.get_post();
-            this.$emit('loadDeletePost', this.delete_post);
+            this.get_note();
+            this.$emit('loadDeleteNote', this.delete_note);
         },
   };
 </script>

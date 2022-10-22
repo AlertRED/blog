@@ -18,18 +18,18 @@ const routes = [
   { 
     path: '/notes',
     name: 'Notes',
-    component: () => import('./views/notes/NotePage.vue'),
+    component: () => import('./views/note/NotesPage.vue'),
   },
   { 
-    path: '/create-post',
-    name: 'CreatePost',
-    component: () => import('./views/blog/EditPostPage.vue'),
+    path: '/create-note',
+    name: 'CreateNote',
+    component: () => import('./views/note/EditNotePage.vue'),
     meta: { requiresAuth: true },
   },
   { 
-    path: '/edit-post/:id',
-    name: 'EditPost',
-    component: () => import('./views/blog/EditPostPage.vue'),
+    path: '/edit-note/:id',
+    name: 'EditNote',
+    component: () => import('./views/note/EditNotePage.vue'),
   },
   { 
     path: '/categories',
@@ -37,9 +37,9 @@ const routes = [
     component: () => import('./views/category/CategoriesPage.vue'),
   },
   { 
-    path: '/post-detail/:id',
-    name: 'PostDetail',
-    component: () => import('./views/blog/PostDetailPage.vue'),
+    path: '/note-detail/:id',
+    name: 'NoteDetail',
+    component: () => import('./views/note/NoteDetailPage.vue'),
   },
   { 
     path: '/:pathMatch(.*)*',

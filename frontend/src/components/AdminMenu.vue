@@ -1,10 +1,10 @@
 <template>
     <div v-if="is_auth()" id="admin-menu" @clicked="onClickChild">
         <ul>
-        <li><router-link :to="{ name:'CreatePost'}">Create post</router-link></li>
-        <template v-if="$route.matched.some(({ name }) => name === 'PostDetail')">
-            <li><router-link :to="{ name:'EditPost', params: {id: this.$route.params.id}}">Edit post</router-link></li>
-            <li><a class="brightness-hover" @click="delete_post()">Delete post</a></li>
+        <li><router-link :to="{ name:'CreateNote'}">Create note</router-link></li>
+        <template v-if="$route.matched.some(({ name }) => name === 'NoteDetail')">
+            <li><router-link :to="{ name:'EditNote', params: {id: this.$route.params.id}}">Edit note</router-link></li>
+            <li><a class="brightness-hover" @click="delete_note()">Delete note</a></li>
         </template>
         </ul>
         <hr/>
@@ -17,7 +17,7 @@
 
     export default {
         props: {
-            delete_post: Function,
+            delete_note: Function,
         },
         methods: {
             is_auth(){

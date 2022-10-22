@@ -49,7 +49,7 @@ urlpatterns = [
     re_path('admin/', admin.site.urls),
     re_path('api/auth/login/', AuthView.as_view()),
     re_path(
-        'api/posts/',
+        'api/notes/',
         PostView.as_view(
             {
                 'get': 'list',
@@ -59,7 +59,7 @@ urlpatterns = [
         name='api_post_create_list',
     ),
     re_path(
-        'api/post/(?P<pk>[0-9A-Fa-f-]+)/',
+        'api/note/(?P<pk>[0-9A-Fa-f-]+)/',
         PostView.as_view(
             {
                 'get': 'retrieve',
@@ -147,12 +147,12 @@ urlpatterns = [
     ),
     re_path('api-auth/', include('rest_framework.urls')),
     re_path(
-        'api/post-files/',
+        'api/note-files/',
         FilePostCreateView.as_view(),
         name='api_post_file_create',
     ),
     re_path(
-        'api/post-file/(?P<pk>[0-9A-Fa-f-]+)/',
+        'api/note-file/(?P<pk>[0-9A-Fa-f-]+)/',
         FilePostGetView.as_view(),
         name='api_post_file_get',
     ),
