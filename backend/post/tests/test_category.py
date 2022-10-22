@@ -6,7 +6,7 @@ from django.urls import reverse
 from rest_framework import status
 
 from blog import settings
-from blog.factories import CategoryFactory, UserFactory
+from blog.factories import CategoryFactory, PostFactory, UserFactory
 from blog.utils import BasicAPITestCase
 from post.models import Category
 
@@ -53,7 +53,7 @@ class CategoryGetListTestCase(BasicAPITestCase):
     def test_success_get_list_category(self):
         count_categories = randint(5, settings.REST_FRAMEWORK['PAGE_SIZE'])
         for _ in range(count_categories):
-            CategoryFactory()
+            PostFactory(category=CategoryFactory())
 
         response = self._request()
 
@@ -74,7 +74,30 @@ class CategoryGetTestCase(BasicAPITestCase):
             'title': FuzzyText().fuzz(),
         }
         category = CategoryFactory(**data)
+        PostFactory(category=category)
 
+        response = self._request(category.pk)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(Category.objects.all()), 1)
+        self.assertEqual(len(Category.objects.filter(pk=category.pk)), 1)
+        category: Category = Category.objects.filter(pk=category.pk)[0]
+        self.assertEqual(category.title, data['title'])
+
+    def test_failure_get_category_if_havent_posts_and_not_auth(self):
+        data = {
+            'title': FuzzyText().fuzz(),
+        }
+        category = CategoryFactory(**data)
+        response = self._request(category.pk)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_success_get_category_if_havent_posts_and_auth(self):
+        data = {
+            'title': FuzzyText().fuzz(),
+        }
+        category = CategoryFactory(**data)
+        self._auth(UserFactory())
         response = self._request(category.pk)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
