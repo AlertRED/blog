@@ -44,6 +44,14 @@ class CategoryView(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     pagination_class = CategoryPagination
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return Category.objects.all()
+        return Category.objects.filter(
+            pk__in=Post.objects.filter(is_draft=False).
+            values_list('category_id', flat=True),
+        )
+
 
 class PostByCategoryView(mixins.ListModelMixin, GenericViewSet):
     serializer_class = PostSerializer

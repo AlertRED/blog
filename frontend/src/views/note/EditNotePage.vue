@@ -1,15 +1,15 @@
 <template>
-    <form id="create-post">
+    <form id="create-note">
         <div>
-            <label for="post-title">Title</label>
+            <label for="note-title">Title</label>
             <input
-                id="post-title"
+                id="note-title"
                 v-model="title"
             />
 
         </div>
         
-        <div id="post-body">
+        <div id="note-body">
             <mavon-editor
                 ref="me"
                 @imgAdd="$imgAdd"
@@ -23,7 +23,7 @@
             />
         </div>
         
-        <div id="post-options">
+        <div id="note-options">
             <div class="select">
                 <label>Category</label>
                 <select v-model="category">
@@ -39,10 +39,10 @@
         </div>
 
         <template v-if="is_edit">
-            <a href="#" v-on:click="save_post">Save</a>
+            <a href="#" v-on:click="save_note">Save</a>
         </template>
         <template v-else>
-            <a href="#" v-on:click="create_post">Create</a>
+            <a href="#" v-on:click="create_note">Create</a>
         </template>
         
     </form>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-    import "./blog.css";
+    import "./note.css";
     import "mavon-editor/dist/css/index.css";
     import "../../assets/markdown-add-on.css";
     import { ModelSelect } from 'vue-search-select';
@@ -84,9 +84,9 @@
                 var formdata = new FormData();
                 formdata.append('file', $file);
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/post-files/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/note-files/`, 
                     {
-                        method: "post",
+                        method: "note",
                         body: formdata,
                         headers: {
                             Authorization: get_bearer(),
@@ -99,7 +99,7 @@
                 else
                     throw_body(response.body)
             },
-            async create_post(){
+            async create_note(){
                 let fromBody = new FormData();
                 fromBody.append('title', this.title);
                 fromBody.append('body', this.body);
@@ -107,9 +107,9 @@
                 fromBody.append('is_draft', this.is_draft);
                 
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/posts/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/notes/`, 
                     {
-                        method: "post",
+                        method: "note",
                         body: fromBody,
                         headers: {
                             Authorization: get_bearer(),
@@ -118,11 +118,11 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 201)
-                    this.$router.push({name:'PostDetail', params: { id: response.body.id }});
+                    this.$router.push({name:'NoteDetail', params: { id: response.body.id }});
                 else
                     throw_body(response.body)
             },
-            async save_post(){
+            async save_note(){
                 let fromBody = new FormData();
                 fromBody.append('title', this.title);
                 fromBody.append('body', this.body);
@@ -130,7 +130,7 @@
                 fromBody.append('is_draft', this.is_draft);
 
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/post/${this.$route.params.id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/note/${this.$route.params.id}/`, 
                     {
                         method: "put",
                         body: fromBody,
@@ -141,13 +141,13 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 200)
-                    this.$router.push({name:'PostDetail', params: { id: this.$route.params.id }});
+                    this.$router.push({name:'NoteDetail', params: { id: this.$route.params.id }});
                 else
                     throw_body(response.body)
             },
-            async get_post(id){
+            async get_note(id){
                 const response = await fetch(
-                    `${import.meta.env.VITE_BASE_API_URL}/post/${id}/`, 
+                    `${import.meta.env.VITE_BASE_API_URL}/note/${id}/`, 
                     {
                         method: "get",
                         headers: {
@@ -157,11 +157,11 @@
                 ).then(response => parse_response(response));
 
                 if (response.status === 200){
-                    const post = response.body;
-                    this.title = post.title;
-                    this.body = post.body;
-                    this.is_draft = post.is_draft;
-                    this.category = post.category;
+                    const note = response.body;
+                    this.title = note.title;
+                    this.body = note.body;
+                    this.is_draft = note.is_draft;
+                    this.category = note.category;
                 } else
                     throw_body(response.body)
             },
@@ -184,7 +184,7 @@
         },
         beforeMount() {
             if (this.is_edit)
-                this.get_post(this.$route.params.id);
+                this.get_note(this.$route.params.id);
             this.get_categories()
         },
   };

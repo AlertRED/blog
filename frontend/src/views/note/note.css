@@ -1,10 +1,10 @@
 @import "../../assets/base.css";
 
-#create-post {
+#create-note {
   width: 100%;
 }
 
-#create-post > div > #post-title {
+#create-note > div > #note-title {
   flex-grow: 1;
   border: none;
   border-bottom: 1px solid var(--color-feature);
@@ -14,11 +14,11 @@
   position: relative;
 }
 
-#create-post > div {
+#create-note > div {
   margin-bottom: 2rem;
 }
 
-#create-post > #post-body {
+#create-note > #note-body {
   border: 1px solid var(--color-feature);
   box-shadow: none;
   flex-grow: 1;
@@ -26,7 +26,7 @@
   outline: none;
 }
 
-#create-post > a {
+#create-note > a {
   outline: none;
   border: 1px solid var(--color-feature);
   background:  var(--color-background);
@@ -34,7 +34,7 @@
   padding: 0.2rem 1rem 0.2rem 1rem;
 }
 
-#create-post > a:hover {
+#create-note > a:hover {
   background: var(--color-feature);
   color:  var(--color-background);
 }
@@ -50,7 +50,7 @@
   border-bottom: 1px solid var(--color-feature);
 }
 
-#post-detail > #post-title {
+#note-detail > #note-title {
   color: var(--color-feature);
   text-align: center;
   font-size: 1.5rem;
@@ -59,7 +59,7 @@
   margin: 0 auto;
 }
 
-#post-detail > #post-category {
+#note-detail > #note-category {
   color: var(--color-feature);
   list-style-type: none;
 
@@ -71,11 +71,11 @@
   margin-bottom: 2rem;
 }
 
-#post-detail > #post-categories > li {
+#note-detail > #note-categories > li {
   cursor: pointer;
 }
 
-#post-detail > #post-categories > li::before {
+#note-detail > #note-categories > li::before {
   content: "■";
   font-size: 0.6rem;
   top: -0.2rem;
@@ -83,15 +83,15 @@
   opacity: 0;
 }
 
-#post-detail > #post-categories > li:hover::before {
+#note-detail > #note-categories > li:hover::before {
   opacity: 1;
 }
 
-#post-detail > #post-categories > li:not(:last-child) {
+#note-detail > #note-categories > li:not(:last-child) {
   margin-right: 1rem;
 }
 
-#post-detail > #post-body {
+#note-detail > #note-body {
   color: var(--color-simple);
 }
 
@@ -136,7 +136,7 @@
   cursor: pointer;
 }
 
-#button-add-post {
+#button-add-note {
   position: absolute;
   left: 0rem;
   top: 0rem;
@@ -155,27 +155,27 @@
   align-items: center;
 }
 
-#button-add-post:hover {
+#button-add-note:hover {
   background-image: none;
 }
 
-#button-add-post::before {
+#button-add-note::before {
   content: "+";
 }
 
-#posts {
+#notes {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-#posts > li.post > div.post-title,
-#posts > li.post > div.post-date,
-#posts > li.post > div.post-draft {
+#notes > li.note > div.note-title,
+#notes > li.note > div.note-date,
+#notes > li.note > div.note-draft {
   display: inline;
 }
 
-#posts > li.post > div.post-draft {
+#notes > li.note > div.note-draft {
   margin-left: 1rem;
   color: var(--color-simple);
 }
@@ -199,47 +199,47 @@
   margin-top: -0.5rem;
 }
 
-#posts > li.post > div.post-title {
+#notes > li.note > div.note-title {
   font-size: 1.2rem;
   color: var(--color-feature);
   cursor: pointer;
 }
 
-/* #posts > li.post > div.post-title:hover {
+/* #notes > li.note > div.note-title:hover {
   filter: brightness(85%);
 } */
 
-#posts > li.post > div.separator {
+#notes > li.note > div.separator {
   display: inline;
 }
 
-#posts > li.post > div.separator::after {
+#notes > li.note > div.separator::after {
   color: var(--color-simple);
   content: "–";
   margin-right: 1rem;
   margin-left: 1rem;
 }
 
-#posts > li.post > div.post-date {
+#notes > li.note > div.note-date {
   font-size: 1rem;
   color: var(--color-simple);
 }
 
-#posts > li.post > div.post-date::after {
+#notes > li.note > div.note-date::after {
   content: attr(data-date);
 }
 
-#posts > li.post {
+#notes > li.note {
   padding-bottom: 1rem;
 }
 
-div.post-tools {
+div.note-tools {
   position: absolute;
   top: 0rem;
   right: -5rem;
 }
 
-div.post-tools > a {
+div.note-tools > a {
   color: var(--color-feature);
   border: 1px solid var(--color-feature);
   cursor: pointer;
@@ -247,11 +247,11 @@ div.post-tools > a {
   padding: 0.2rem;
 }
 
-div.post-tools > a:not(:last-child) {
+div.note-tools > a:not(:last-child) {
   margin-right: 1rem;
 }
 
-#posts > li.post > div.category {
+#notes > li.note > div.category {
   display: block;
   font-size: 0.9rem;
   line-height: 1.3rem;
@@ -260,7 +260,7 @@ div.post-tools > a:not(:last-child) {
   width: fit-content;
 }
 
-#posts > li.post > div.category::before {
+#notes > li.note > div.category::before {
   content: "-"; 
   margin-right: 0.2rem;
   /* font-size: 0.4rem;
@@ -268,15 +268,15 @@ div.post-tools > a:not(:last-child) {
   opacity: 0; */
 }
 
-#posts > li.post > div.category:hover::before {
+#notes > li.note > div.category:hover::before {
   opacity: 1;
 }
 
-#posts > li.post > div.category:not(:last-child) {
+#notes > li.note > div.category:not(:last-child) {
   margin-right: 1rem;
 }
 
-#post-search {
+#note-search {
   display: grid;
   margin-bottom: 1rem;
   width: 50%;
@@ -284,7 +284,7 @@ div.post-tools > a:not(:last-child) {
   margin-right: auto;
 }
 
-#post-search > button {
+#note-search > button {
   background:  var(--color-background);
   border: none;
   color: var(--color-feature);
@@ -292,7 +292,7 @@ div.post-tools > a:not(:last-child) {
   display: inline;
 }
 
-#post-search > input {
+#note-search > input {
   flex-grow: 1;
   border: none;
   border-bottom: 1px solid var(--color-feature);
@@ -303,15 +303,15 @@ div.post-tools > a:not(:last-child) {
   color: var(--color-text);
 }
 
-#post-search > input::-moz-placeholder {
+#note-search > input::-moz-placeholder {
   color: var(--color-simple);
 }
 
-#post-search > input::-webkit-input-placeholder {
+#note-search > input::-webkit-input-placeholder {
   color: var(--color-simple);
 }
 
-#post-search > input:disabled {
+#note-search > input:disabled {
   cursor: not-allowed;
   border-bottom: 1px solid var(--color-simple);
 }
@@ -346,19 +346,19 @@ div.post-tools > a:not(:last-child) {
   padding: 0.2rem;
 }
 
-#post-edit-options > input[type="checkbox"] {
+#note-edit-options > input[type="checkbox"] {
   margin-right: 0.2rem;
 }
 
-#post-edit-options {
+#note-edit-options {
   text-align: end;
 }
 
-#post-options {
+#note-options {
   display: flex;
 }
 
-#post-options > div:not(:last-child)::after {
+#note-options > div:not(:last-child)::after {
   content: "|";
   color: var(--color-unnoticeble);
   margin-right: 0.5rem;
@@ -374,11 +374,11 @@ div.post-tools > a:not(:last-child) {
 }
 
 @media only screen and (max-width: 640px) {
-  #posts > li.post > div.separator{
+  #notes > li.note > div.separator{
     display: none;
   }
 
-  #posts > li.post > div.post-date::after {
+  #notes > li.note > div.note-date::after {
     display: block;
   }
 }
