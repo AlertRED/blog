@@ -6,7 +6,7 @@
   color: var(--color-text) !important;
 }
 
-.markdown-body table tr {
+.markdown-body table tr, .markdown-body {
   background-color: var(--color-background) !important;
 }
 
@@ -28,6 +28,7 @@
 
 div.markdown-body {
   z-index: 1;
+  height: 55vh;
 }
 
 div.fullscreen {
