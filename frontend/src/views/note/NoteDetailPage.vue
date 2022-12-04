@@ -17,6 +17,7 @@
     import "./note.css";
     import "mavon-editor/dist/css/index.css";
     import "../../assets/markdown-add-on.css";
+    import "../../assets/github-markdown.min.css";
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
 
@@ -24,7 +25,7 @@
         data() {
             return {
                 note: null,
-            } 
+            }
         },
         computed: {
             markdown_body() {
