@@ -6,7 +6,6 @@
                 id="note-title"
                 v-model="title"
             />
-
         </div>
         
         <div id="note-body">
@@ -16,8 +15,11 @@
                 defaultOpen="preview"
                 language="en"
                 fontSize="1rem"
+                :codeStyle="code_style"
+                :ishljs="true"
                 :boxShadow=false
                 :tabSize=4
+                :externalLink="externalLink"
                 placeholder=" "
                 v-model="body"
             />
@@ -47,14 +49,13 @@
         
     </form>
 
-    
-
 </template>
 
 <script>
     import "./note.css";
     import "mavon-editor/dist/css/index.css";
     import "../../assets/markdown-add-on.css";
+
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer } from '@/utils';
@@ -68,6 +69,25 @@
                 is_draft: true,
                 category: null,
                 categories: [],
+
+                code_style: 'color-brewer',
+                externalLink: {
+                    hljs_js: function() {
+                        return '/src/assets/mavon/highlight/highlight.min.js'
+                    },
+                    hljs_css: function(css) {
+                        return '/src/assets/mavon/highlight/styles/' + css + '.min.css';
+                    },
+                    hljs_lang: function(lang) {
+                        return '/src/assets/mavon/highlight/languages/' + lang + '.min.js';
+                    },
+                    katex_css: function() {
+                        return '/src/assets/mavon/katex.min.css';
+                    },
+                    katex_js: function() {
+                        return '/src/assets/mavon/katex.min.js';
+                    },
+                }
             }
         },
         components: {

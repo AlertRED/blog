@@ -9,15 +9,27 @@
                 ~ {{ note?.category }} ~
             </router-link>
         </div>
-        <div :class="`markdown-body`" v-html="markdown_body"></div>
+        <mavon-editor
+            language="en"
+            defaultOpen="preview"
+            previewBackground="transparent"
+            :codeStyle="code_style"
+            :boxShadow=false
+            :subfield=false
+            :toolbarsFlag=false
+            :navigation=false
+            :externalLink="externalLink"
+            :ishljs=true
+            v-model="body"
+        />
     </div>
 </template>
     
 <script>
     import "./note.css";
     import "mavon-editor/dist/css/index.css";
-    import "../../assets/markdown-add-on.css";
-    import "../../assets/github-markdown.min.css";
+    import "../../assets/mavon/markdown-add-on.css";
+
     import { mavonEditor } from 'mavon-editor';
     import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
 
@@ -25,12 +37,36 @@
         data() {
             return {
                 note: null,
+                code_style: 'color-brewer',
+                externalLink: {
+                    hljs_js: function() {
+                        return '/src/assets/mavon/highlight/highlight.min.js'
+                    },
+                    hljs_css: function(css) {
+                        return '/src/assets/mavon/highlight/styles/' + css + '.min.css';
+                    },
+                    hljs_lang: function(lang) {
+                        return '/src/assets/mavon/highlight/languages/' + lang + '.min.js';
+                    },
+                    katex_css: function() {
+                        return '/src/assets/mavon/katex.min.css';
+                    },
+                    katex_js: function() {
+                        return '/src/assets/mavon/katex.min.js';
+                    },
+                }
             }
+        },
+        components: {
+            mavonEditor,
         },
         computed: {
             markdown_body() {
                 const markdownIt = mavonEditor.getMarkdownIt();
                 return markdownIt.render(this.note?.body || '');
+            },
+            body(){
+                return this.note?.body || ''
             }
         },
         methods: {
@@ -82,5 +118,13 @@
 #editor {
   margin: auto;
   width: 80%;
+}
+
+div.markdown-body {
+    height: fit-content;
+}
+
+.v-note-wrapper{
+    border: none;
 }
 </style>
