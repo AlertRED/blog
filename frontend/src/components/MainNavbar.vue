@@ -59,10 +59,9 @@ export default {
                     }`
                 )
             )
+
             document.head.appendChild(css)  
-
             document.documentElement.setAttribute('theme', theme_name);
-
             const _ = window.getComputedStyle(css).opacity
             document.head.removeChild(css)
         }

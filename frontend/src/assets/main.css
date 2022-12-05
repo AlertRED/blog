@@ -126,6 +126,10 @@ a.button {
   display: inline;
 }
 
+#menu > li > a {
+  text-shadow: 0 0 2px var(--color-feature), 0 0 2px var(--color-feature);
+}
+
 #menu > li:not(:last-child)::after {
   content: "/";
   margin-right: 1rem;
