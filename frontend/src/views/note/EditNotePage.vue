@@ -54,7 +54,7 @@
 <script>
     import "./note.css";
     import "mavon-editor/dist/css/index.css";
-    import "../../assets/markdown-add-on.css";
+    import "../../assets/mavon/markdown-add-on.css";
 
     import { ModelSelect } from 'vue-search-select';
     import { mavonEditor } from 'mavon-editor';
