@@ -110,4 +110,8 @@ div.markdown-body {
 .v-note-wrapper{
     border: none !important;
 }
+
+.v-show-content {
+    padding: 0 !important;
+}
 </style>
