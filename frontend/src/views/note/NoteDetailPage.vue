@@ -38,23 +38,6 @@
             return {
                 note: null,
                 code_style: 'color-brewer',
-                externalLink: {
-                    hljs_js: function() {
-                        return '/src/assets/mavon/highlight/highlight.min.js'
-                    },
-                    hljs_css: function(css) {
-                        return '/src/assets/mavon/highlight/styles/' + css + '.min.css';
-                    },
-                    hljs_lang: function(lang) {
-                        return '/src/assets/mavon/highlight/languages/' + lang + '.min.js';
-                    },
-                    katex_css: function() {
-                        return '/src/assets/mavon/katex.min.css';
-                    },
-                    katex_js: function() {
-                        return '/src/assets/mavon/katex.min.js';
-                    },
-                }
             }
         },
         components: {
@@ -121,10 +104,10 @@
 }
 
 div.markdown-body {
-    height: fit-content;
+    height: fit-content !important;
 }
 
 .v-note-wrapper{
-    border: none;
+    border: none !important;
 }
 </style>
