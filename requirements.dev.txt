@@ -1,5 +1,8 @@
 -r requirements.txt
 
+# Pre-commit
+pre-commit==3.0.4
+
 # Flake8
 flake8==5.0.4
 flake8-django==1.1.5
