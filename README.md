@@ -36,7 +36,7 @@ npm install
 Run frontend server
 ```shell
 npm run dev
-``
+```
 
 ### Linting
 Connection pre-commit to git hooks
