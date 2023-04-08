@@ -37,3 +37,14 @@ Run frontend server
 ```shell
 npm run dev
 ```
+
+### Linting
+Connection pre-commit to git hooks
+```shell
+pre-commit install
+```
+
+Check project by pre-commit
+```shell
+pre-commit run --all-files
+```
