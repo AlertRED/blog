@@ -1,3 +1,4 @@
+from datetime import datetime
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -19,6 +20,10 @@ class AuthView(ObtainAuthToken):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
+        if not created:
+            token.created = datetime.utcnow()
+            token.save()
+
         return Response({
             'token': token.key,
             'lifetime': settings.TOKEN_LIFETIME,
