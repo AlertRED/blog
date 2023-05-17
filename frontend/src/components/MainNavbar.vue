@@ -1,7 +1,7 @@
 <template>
     <header>
         <div id="toolbar">
-            <ul id="menu">
+            <ul id="menu" v-if="isMenuShowed || !is_mobile">
                 <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Notes'}">Notes</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
@@ -13,6 +13,12 @@
             >
                 <div :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }">
                 </div>
+            </div>
+            <div
+                id="menu-burger"
+                @click="() => { isMenuShowed = !isMenuShowed }"
+            >
+                <div :class="`icon-th-menu`"/>
             </div>
         </div>
     </header>
@@ -27,23 +33,30 @@ export default {
         return {
             theme_name: localStorage['theme'] || "dark",
             cvpdf: cvpdf,
+            isMenuShowed: true,
+            is_mobile: false,
         }
     },
     mounted() {
         window.addEventListener("storage", this.onStorageUpdate);
+        window.addEventListener("resize", this.onResize);
         this.setTheme(this.theme_name);
+        this.onResize();
     },
     watch: {
         theme_name(newName) {
             localStorage.theme = newName;
             this.setTheme(this.theme_name);
-        }
+        },
     },
     methods: {
         onStorageUpdate(event) {
             if (event.key === "theme") {
                 this.theme_name = event.newValue;
             }
+        },
+        onResize() {
+            this.is_mobile = window.innerWidth <= 640
         },
         setTheme(theme_name){
             const css = document.createElement('style')
