@@ -25,7 +25,7 @@ import cvpdf from '../assets/CV.pdf'
 export default { 
     data() {
         return {
-            theme_name: localStorage['theme'] || "light",
+            theme_name: localStorage['theme'] || "dark",
             cvpdf: cvpdf,
         }
     },
