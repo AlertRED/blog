@@ -7,18 +7,29 @@
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
                 <li><a :class="`brightness-hover`" :href="cvpdf" target="_blank">CV <sup>(pdf)</sup></a></li>
             </ul>
+
             <div
                 id="change-theme"
                 @click="() => { theme_name = (theme_name == 'light' ? 'dark' : 'light') }"
             >
-                <div :class="{ 'icon-weather-sunny moved': theme_name == 'light', 'icon-moon-o': theme_name == 'dark', }">
+                <div :class="{
+                    'icon-weather-sunny moved': theme_name == 'light',
+                    'icon-moon-o': theme_name == 'dark',
+                    'square-icon': true,
+                }">
                 </div>
             </div>
+
             <div
                 id="menu-burger"
                 @click="() => { isMenuShowed = !isMenuShowed }"
             >
-                <div :class="`icon-th-menu`"/>
+                <div :class="{
+                    'icon-close': isMenuShowed,
+                    'icon-bars': !isMenuShowed,
+                    'square-icon': true,
+                }">
+                </div>
             </div>
         </div>
     </header>
