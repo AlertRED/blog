@@ -139,7 +139,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TOKEN_LIFETIME = 24
+TOKEN_LIFETIME = 24 * 60 * 60 # 24 HOURS
 
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = ["http://localhost:8080"]
