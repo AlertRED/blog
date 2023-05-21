@@ -1,27 +1,22 @@
 export function get_token() {
-    const storage = localStorage;
-    const token = storage.getItem('token');
-    const expiredTime = storage.getItem('expiredTime');
+    const token = localStorage.getItem('token');
+    const expiredTime = localStorage.getItem('expiredTime');
     if (Date.now() < expiredTime){
-        const lifeTime = storage.getItem('lifetime');
-        storage.setItem('expiredTime', Date.now() + lifeTime * 1000);
+        const lifeTime = localStorage.getItem('lifetime');
+        localStorage.setItem('expiredTime', Date.now() + lifeTime * 1000);
         return token;
     };
     return null;
 };
 
-export function is_auth() {
-    const storage = localStorage;
-    const token = storage.getItem('token');
-    const expiredTime = storage.getItem('expiredTime');
-    if (Date.now() < expiredTime && token){
-        return true;
-    };
-    return false;
+export function check_is_auth() {
+    const token = localStorage.getItem('token');
+    const expiredTime = localStorage.getItem('expiredTime');
+    return Date.now() < expiredTime && Boolean(token);
 }
 
 export function get_bearer() {
-    return is_auth() ? `Bearer ${get_token()}` : null
+    return check_is_auth() ? `Bearer ${get_token()}` : null
 }
 
 export function throw_body(body) {

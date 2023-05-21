@@ -1,7 +1,7 @@
 <template>
     <header>
         <div id="toolbar">
-            <ul id="menu" v-if="isMenuShowed || !is_mobile">
+            <ul id="menu" v-if="isMenuShowed || !isMobile">
                 <li><router-link :class="`brightness-hover`" :to="{ name:'About'}">About</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Notes'}">Notes</router-link></li>
                 <li><router-link :class="`brightness-hover`" :to="{ name:'Categories'}">Categories</router-link></li>
@@ -45,7 +45,7 @@ export default {
             theme_name: localStorage['theme'] || "dark",
             cvpdf: cvpdf,
             isMenuShowed: true,
-            is_mobile: false,
+            isMobile: false,
         }
     },
     mounted() {
@@ -67,7 +67,7 @@ export default {
             }
         },
         onResize() {
-            this.is_mobile = window.innerWidth <= 640
+            this.isMobile = window.innerWidth <= 640
         },
         setTheme(theme_name){
             const css = document.createElement('style')

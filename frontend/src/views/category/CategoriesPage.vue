@@ -25,7 +25,7 @@
     
 <script>
     import "./category.css";
-    import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
+    import { parse_response, throw_body, get_bearer, check_is_auth } from '@/utils';
 
     export default {
         data() {
@@ -33,12 +33,10 @@
                 categories: [],
                 new_category_tittle: null,
                 category_edit: null,
+                is_auth: check_is_auth,
             }
         },
         methods: {
-            is_auth(){
-                return is_auth();
-            },
             async get_categories() {
                 await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/categories`, 
