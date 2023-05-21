@@ -31,13 +31,14 @@
     import "../../assets/mavon/markdown-add-on.css";
 
     import { mavonEditor } from 'mavon-editor';
-    import { parse_response, throw_body, get_bearer, is_auth } from '@/utils';
+    import { parse_response, throw_body, get_bearer, check_is_auth } from '@/utils';
 
     export default {
         data() {
             return {
                 note: null,
                 code_style: 'color-brewer',
+                is_auth: check_is_auth,
             }
         },
         components: {
@@ -53,9 +54,6 @@
             }
         },
         methods: {
-            is_auth(){
-                return is_auth();
-            },
             async get_note() {
                 const response = await fetch(
                     `${import.meta.env.VITE_BASE_API_URL}/note/${this.$route.params.id}/`, 

@@ -14,7 +14,8 @@
 <script>
 
 import "./auth.css";
-import { parse_response, throw_body, get_bearer } from '@/utils';
+import { parse_response, throw_body, get_bearer, check_is_auth } from '@/utils';
+
 
 export default {
     data() {
@@ -49,6 +50,7 @@ export default {
                     localStorage.setItem('expiredTime', expiredTime);
                     localStorage.setItem('lifetime', response.body.lifetime);
                     localStorage.setItem('token', response.body.token);
+                    this.$emit('loadIsAuth', check_is_auth());
                     this.$router.push({ name: 'Notes' });
                 } else
                     throw_body(response.body)

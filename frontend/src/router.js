@@ -1,5 +1,5 @@
 import { createRouter } from 'vue-router';
-import { is_auth } from '@/utils';
+import { check_is_auth } from '@/utils';
 import { createWebHistory } from 'vue-router'
 
 
@@ -52,7 +52,7 @@ const history = createWebHistory();
 const router = createRouter({ history, routes })
 
 router.beforeEach((to, from) => {
-  if (to.meta.requiresAuth && !is_auth()) {
+  if (to.meta.requiresAuth && !check_is_auth()) {
     return {name: 'Auth'}
   }
 })
