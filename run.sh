@@ -1,8 +1,6 @@
 #!/bin/bash
-yum install -y python3 python3-pip npm lsof nginx
 iptables -I INPUT -p tcp --dport 8000 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -I INPUT -p tcp --dport 80 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-# iptables -t nat -A OUTPUT -o lo -p tcp --dport 80 -j REDIRECT --to-port 8080
 
 kill -9 $(lsof -t -i:8001)
 kill -9 $(lsof -t -i:5173)
